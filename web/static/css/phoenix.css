@@ -35,6 +35,16 @@ form.link, form.button {
   margin: 20px auto;
   float: none;
 }
+.cs-logo {
+  width: 256px;
+  height: 49px;
+  display: block;
+  margin-bottom: 1em;
+  background-image: url("/images/cs-logo.png");
+  background-size: 256px 49px;
+  margin: 20px auto;
+  float: none;
+}
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
