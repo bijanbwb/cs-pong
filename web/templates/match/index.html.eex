@@ -23,7 +23,7 @@
   <tbody>
 <%= for match <- @matches do %>
     <tr class="match-list-item">
-      <td><%= match.id %></td>
+      <td><%= link match.id, to: match_path(@conn, :show, match) %></td>
       <td><%= match.player_win_id %></td>
       <td><%= match.player_loss_id %></td>
       <td><%= match.player_a_points %>-<%= match.player_b_points %></td>

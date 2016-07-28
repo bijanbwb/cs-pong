@@ -1,48 +1,17 @@
-<h2>Show match</h2>
+<h2>Match Details</h2>
 
 <ul>
-
-  <li>
-    <strong>Player a:</strong>
-    <%= @match.player_a_id %>
-  </li>
-
-  <li>
-    <strong>Player b:</strong>
-    <%= @match.player_b_id %>
-  </li>
-
-  <li>
-    <strong>Player a points:</strong>
-    <%= @match.player_a_points %>
-  </li>
-
-  <li>
-    <strong>Player b points:</strong>
-    <%= @match.player_b_points %>
-  </li>
-
-  <li>
-    <strong>Player win:</strong>
-    <%= @match.player_win_id %>
-  </li>
-
-  <li>
-    <strong>Player loss:</strong>
-    <%= @match.player_loss_id %>
-  </li>
-
-  <li>
-    <strong>Total points:</strong>
-    <%= @match.total_points %>
-  </li>
-
-  <li>
-    <strong>Overtime:</strong>
-    <%= @match.overtime %>
-  </li>
-
+  <li><strong>Match #:</strong><%= @match.id %></li>
+  <li><strong>Won:</strong><%= @match.player_win_id %></li>
+  <li><strong>Lost:</strong><%= @match.player_loss_id %></li>
+  <li><strong>Score:</strong><%= @match.player_a_points %>-<%= @match.player_b_points %></li>
 </ul>
 
-<%= link "Edit", to: match_path(@conn, :edit, @match) %>
-<%= link "Back", to: match_path(@conn, :index) %>
+<ul>
+  <li><strong>All-time Record for <%= @match.player_a_id %> and <%= @match.player_b_id %>:</strong></li>
+  <li><strong>All-time Point Differential for <%= @match.player_a_id %> and <%= @match.player_b_id %>:</strong></li>
+</ul>
+
+<%= link "Back", to: match_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
+<%= link "Edit", to: match_path(@conn, :edit, @match), class: "btn btn-default btn-lg btn-block" %>
+<%= link "Delete", to: match_path(@conn, :delete, @match), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-lg btn-block" %>
