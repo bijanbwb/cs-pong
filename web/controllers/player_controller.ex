@@ -3,6 +3,8 @@ defmodule Pong.PlayerController do
 
   alias Pong.Player
 
+  plug :scrub_params, "player" when action in [:create, :update]
+
   def index(conn, _params) do
     players = Repo.all(Player)
     render(conn, "index.html", players: players)

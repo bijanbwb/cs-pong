@@ -20,6 +20,6 @@ defmodule Pong.Player do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :avatar_url, :wins, :losses, :total_matches, :total_points, :total_points_against, :total_points_differential])
-    |> validate_required([:name, :avatar_url, :wins, :losses, :total_matches, :total_points, :total_points_against, :total_points_differential])
+    |> validate_required([:name])
   end
 end
