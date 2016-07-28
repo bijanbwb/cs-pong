@@ -20,6 +20,6 @@ defmodule Pong.Match do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:player_a_id, :player_b_id, :player_a_points, :player_b_points, :player_win_id, :player_loss_id, :total_points, :overtime])
-    |> validate_required([:player_a_id, :player_b_id, :player_a_points, :player_b_points, :player_win_id, :player_loss_id, :total_points, :overtime])
+    |> validate_required([:player_a_id, :player_b_id, :player_a_points, :player_b_points])
   end
 end
