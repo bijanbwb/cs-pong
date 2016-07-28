@@ -1,37 +1,21 @@
-<h2>Listing players</h2>
+<h2>Players</h2>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Avatar url</th>
+      <th>Player Name</th>
       <th>Wins</th>
       <th>Losses</th>
-      <th>Total matches</th>
-      <th>Total points</th>
-      <th>Total points against</th>
-      <th>Total points differential</th>
-
-      <th></th>
+      <th>All-time Point Differential</th>
     </tr>
   </thead>
   <tbody>
 <%= for player <- @players do %>
     <tr>
-      <td><%= player.name %></td>
-      <td><%= player.avatar_url %></td>
+      <td><%= link player.name, to: player_path(@conn, :show, player) %></td>
       <td><%= player.wins %></td>
       <td><%= player.losses %></td>
-      <td><%= player.total_matches %></td>
-      <td><%= player.total_points %></td>
-      <td><%= player.total_points_against %></td>
       <td><%= player.total_points_differential %></td>
-
-      <td class="text-right">
-        <%= link "Show", to: player_path(@conn, :show, player), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: player_path(@conn, :edit, player), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: player_path(@conn, :delete, player), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
     </tr>
 <% end %>
   </tbody>
