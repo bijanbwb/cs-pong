@@ -1,0 +1,48 @@
+<h2>Show player</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @player.name %>
+  </li>
+
+  <li>
+    <strong>Avatar url:</strong>
+    <%= @player.avatar_url %>
+  </li>
+
+  <li>
+    <strong>Wins:</strong>
+    <%= @player.wins %>
+  </li>
+
+  <li>
+    <strong>Losses:</strong>
+    <%= @player.losses %>
+  </li>
+
+  <li>
+    <strong>Total matches:</strong>
+    <%= @player.total_matches %>
+  </li>
+
+  <li>
+    <strong>Total points:</strong>
+    <%= @player.total_points %>
+  </li>
+
+  <li>
+    <strong>Total points against:</strong>
+    <%= @player.total_points_against %>
+  </li>
+
+  <li>
+    <strong>Total points differential:</strong>
+    <%= @player.total_points_differential %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: player_path(@conn, :edit, @player) %>
+<%= link "Back", to: player_path(@conn, :index) %>
