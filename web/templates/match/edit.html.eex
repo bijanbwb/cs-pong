@@ -1,6 +1,44 @@
-<h2>Edit match</h2>
+<h2>Edit Match</h2>
 
-<%= render "form.html", changeset: @changeset,
-                        action: match_path(@conn, :update, @match) %>
+<%= form_for @changeset, match_path(@conn, :update, @match), fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
 
-<%= link "Back", to: match_path(@conn, :index) %>
+  <div class="form-group">
+    <%= label f, :player_a_id, "Player A ID", class: "control-label" %>
+    <%= number_input f, :player_a_id, class: "form-control" %>
+    <%= error_tag f, :player_a_id %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :player_b_id, "Player B ID", class: "control-label" %>
+    <%= number_input f, :player_b_id, class: "form-control" %>
+    <%= error_tag f, :player_b_id %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :player_a_points, "Player A Score",class: "control-label" %>
+    <%= number_input f, :player_a_points, class: "form-control" %>
+    <%= error_tag f, :player_a_points %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :player_b_points, "Player B Score", class: "control-label" %>
+    <%= number_input f, :player_b_points, class: "form-control" %>
+    <%= error_tag f, :player_b_points %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :overtime, "Overtime?", class: "control-label" %>
+    <%= checkbox f, :overtime, class: "form-control checkbox" %>
+    <%= error_tag f, :overtime %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-success btn-lg btn-block" %>
+    <%= link "Back", to: match_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
+  </div>
+<% end %>
