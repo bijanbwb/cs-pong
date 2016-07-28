@@ -7,12 +7,12 @@ defmodule Pong.PlayerControllerTest do
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, player_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing players"
+    assert html_response(conn, 200) =~ "Players"
   end
 
   test "renders form for new resources", %{conn: conn} do
     conn = get conn, player_path(conn, :new)
-    assert html_response(conn, 200) =~ "New player"
+    assert html_response(conn, 200) =~ "New Player"
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
@@ -23,13 +23,13 @@ defmodule Pong.PlayerControllerTest do
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
     conn = post conn, player_path(conn, :create), player: @invalid_attrs
-    assert html_response(conn, 200) =~ "New player"
+    assert html_response(conn, 200) =~ "New Player"
   end
 
   test "shows chosen resource", %{conn: conn} do
     player = Repo.insert! %Player{}
     conn = get conn, player_path(conn, :show, player)
-    assert html_response(conn, 200) =~ "Show player"
+    assert html_response(conn, 200) =~ "Player Details"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
@@ -41,7 +41,7 @@ defmodule Pong.PlayerControllerTest do
   test "renders form for editing chosen resource", %{conn: conn} do
     player = Repo.insert! %Player{}
     conn = get conn, player_path(conn, :edit, player)
-    assert html_response(conn, 200) =~ "Edit player"
+    assert html_response(conn, 200) =~ "Edit Player"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
@@ -54,7 +54,7 @@ defmodule Pong.PlayerControllerTest do
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
     player = Repo.insert! %Player{}
     conn = put conn, player_path(conn, :update, player), player: @invalid_attrs
-    assert html_response(conn, 200) =~ "Edit player"
+    assert html_response(conn, 200) =~ "Edit Player"
   end
 
   test "deletes chosen resource", %{conn: conn} do
