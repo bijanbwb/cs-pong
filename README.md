@@ -1,20 +1,36 @@
-# Pong
+# Code School Ping Pong Tracker
 
-To start your Phoenix app:
+![Screenshot]()
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `npm install`
-  * Start Phoenix endpoint with `mix phoenix.server`
+> Track Code School ping pong game results with Elixir and Phoenix!
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Requirements
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+- Erlang/OTP 19
+- Elixir 1.2+
+- Phoenix 1.2+
+- Node 5.5.0
 
-## Learn more
+## Setup Instructions
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+1. `git clone https://github.com/codeschool/pong.git`
+2. `mix deps.get` to install Phoenix dependencies.
+3. `config/dev.exs` and `config/test.exs` to configure local database.
+4. `mix ecto.setup` to create, migrate, and seed the database.
+5. `npm install` to install Node dependencies.
+6. `mix phoenix.server` to start Phoenix server.
+7. `localhost:4000` to see application!
+
+## Phoenix Console
+
+- `iex -S mix`
+
+## Run Tests
+
+- `mix test`
+
+## Contributing
+
+Check out the [Inbox](https://github.com/codeschool/practice/issues/1) issue
+to see what is currently on deck.
+
