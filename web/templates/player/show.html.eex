@@ -1,5 +1,5 @@
 <h2><%= @player.name %></h2>
-<%= tag(:img, src: @player.avatar_url, alt: @player.name) %>
+<%= tag(:img, src: @player.avatar_url, alt: @player.name, class: "avatar-image") %>
 
 <h3>Player Details</h3>
 <ul>
@@ -14,7 +14,6 @@
 
 <h3>Recent Matches</h3>
 <ul>
-  <li>...</li>
 </ul>
 
 <%= link "Back", to: player_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>

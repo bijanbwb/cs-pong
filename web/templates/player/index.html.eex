@@ -12,7 +12,7 @@
   <tbody>
 <%= for player <- @players do %>
     <tr>
-      <td><%= link player.name, to: player_path(@conn, :show, player) %></td>
+      <td><%= link player.name, to: player_path(@conn, :show, player), class: "player-list-item" %></td>
       <td><%= player.wins %></td>
       <td><%= player.losses %></td>
       <td><%= player.total_points_differential %></td>
@@ -22,3 +22,4 @@
 </table>
 
 <%= link "New Player", to: player_path(@conn, :new), class: "btn btn-success btn-lg btn-block" %>
+<%= link "Back", to: "/", class: "btn btn-default btn-lg btn-block" %>
