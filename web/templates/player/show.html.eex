@@ -1,5 +1,5 @@
 <h2><%= @player.name %></h2>
-<img src=<%= @player.avatar_url %> alt="<%= @player.name %> />
+<%= tag(:img, src: @player.avatar_url, alt: @player.name) %>
 
 <h3>Player Details</h3>
 <ul>
