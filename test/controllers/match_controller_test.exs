@@ -7,12 +7,12 @@ defmodule Pong.MatchControllerTest do
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, match_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing matches"
+    assert html_response(conn, 200) =~ "Match History"
   end
 
   test "renders form for new resources", %{conn: conn} do
     conn = get conn, match_path(conn, :new)
-    assert html_response(conn, 200) =~ "New match"
+    assert html_response(conn, 200) =~ "New Match"
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
@@ -23,13 +23,13 @@ defmodule Pong.MatchControllerTest do
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
     conn = post conn, match_path(conn, :create), match: @invalid_attrs
-    assert html_response(conn, 200) =~ "New match"
+    assert html_response(conn, 200) =~ "New Match"
   end
 
   test "shows chosen resource", %{conn: conn} do
     match = Repo.insert! %Match{}
     conn = get conn, match_path(conn, :show, match)
-    assert html_response(conn, 200) =~ "Show match"
+    assert html_response(conn, 200) =~ "Match Details"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
@@ -41,7 +41,7 @@ defmodule Pong.MatchControllerTest do
   test "renders form for editing chosen resource", %{conn: conn} do
     match = Repo.insert! %Match{}
     conn = get conn, match_path(conn, :edit, match)
-    assert html_response(conn, 200) =~ "Edit match"
+    assert html_response(conn, 200) =~ "Edit Match"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
@@ -54,7 +54,7 @@ defmodule Pong.MatchControllerTest do
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
     match = Repo.insert! %Match{}
     conn = put conn, match_path(conn, :update, match), match: @invalid_attrs
-    assert html_response(conn, 200) =~ "Edit match"
+    assert html_response(conn, 200) =~ "Edit Match"
   end
 
   test "deletes chosen resource", %{conn: conn} do
