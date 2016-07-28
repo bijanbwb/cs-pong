@@ -1,6 +1,6 @@
 # Code School Ping Pong Tracker
 
-![Screenshot]()
+![Screenshot](https://cloud.githubusercontent.com/assets/201320/17226235/63d8e0a2-54d6-11e6-9c41-f1d568fd6121.png)
 
 > Track Code School ping pong game results with Elixir and Phoenix!
 
