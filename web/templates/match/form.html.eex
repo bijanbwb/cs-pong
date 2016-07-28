@@ -1,0 +1,59 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :player_a_id, class: "control-label" %>
+    <%= number_input f, :player_a_id, class: "form-control" %>
+    <%= error_tag f, :player_a_id %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :player_b_id, class: "control-label" %>
+    <%= number_input f, :player_b_id, class: "form-control" %>
+    <%= error_tag f, :player_b_id %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :player_a_points, class: "control-label" %>
+    <%= number_input f, :player_a_points, class: "form-control" %>
+    <%= error_tag f, :player_a_points %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :player_b_points, class: "control-label" %>
+    <%= number_input f, :player_b_points, class: "form-control" %>
+    <%= error_tag f, :player_b_points %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :player_win_id, class: "control-label" %>
+    <%= number_input f, :player_win_id, class: "form-control" %>
+    <%= error_tag f, :player_win_id %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :player_loss_id, class: "control-label" %>
+    <%= number_input f, :player_loss_id, class: "form-control" %>
+    <%= error_tag f, :player_loss_id %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :total_points, class: "control-label" %>
+    <%= number_input f, :total_points, class: "form-control" %>
+    <%= error_tag f, :total_points %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :overtime, class: "control-label" %>
+    <%= checkbox f, :overtime, class: "form-control" %>
+    <%= error_tag f, :overtime %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
