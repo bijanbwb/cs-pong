@@ -1,5 +1,15 @@
 <h2>Match History</h2>
 
+<h3>Stats</h3>
+<ul class="match-stats">
+  <li>All-time Games Played:</li>
+  <li>All-time Points Scored:</li>
+  <li>All-time Best Win Percentage:</li>
+  <li>All-time Most Wins:</li>
+  <li>All-time Most Points:</li>
+</ul>
+
+<h3>Match Log</h3>
 <table class="table">
   <thead>
     <tr>
