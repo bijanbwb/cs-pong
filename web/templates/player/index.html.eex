@@ -1,0 +1,25 @@
+<h2>Players</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Player Name</th>
+      <th>Wins</th>
+      <th>Losses</th>
+      <th>All-time Point Differential</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for player <- @players do %>
+    <tr>
+      <td><%= link player.name, to: player_path(@conn, :show, player), class: "player-list-item" %></td>
+      <td><%= player.wins %></td>
+      <td><%= player.losses %></td>
+      <td><%= player.total_points_differential %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New Player", to: player_path(@conn, :new), class: "btn btn-success btn-lg btn-block" %>
+<%= link "Back", to: "/", class: "btn btn-default btn-lg btn-block" %>

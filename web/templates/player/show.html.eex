@@ -1,0 +1,21 @@
+<h2><%= @player.name %></h2>
+<%= tag(:img, src: @player.avatar_url, alt: @player.name, class: "avatar-image") %>
+
+<h3>Player Details</h3>
+<ul>
+  <li><strong>Wins:</strong><%= @player.wins %></li>
+  <li><strong>Losses:</strong><%= @player.losses %></li>
+  <li><strong>Win-loss Percentage:</strong><%= @player.losses %></li>
+  <li><strong>Games Played:</strong><%= @player.total_matches %></li>
+  <li><strong>All-time Points:</strong><%= @player.total_points %></li>
+  <li><strong>All-time Points Against:</strong><%= @player.total_points_against %></li>
+  <li><strong>All-time Points Differential:</strong><%= @player.total_points_differential %></li>
+</ul>
+
+<h3>Recent Matches</h3>
+<ul>
+</ul>
+
+<%= link "Back", to: player_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
+<%= link "Edit", to: player_path(@conn, :edit, @player), class: "btn btn-default btn-lg btn-block" %>
+<%= link "Delete", to: player_path(@conn, :delete, @player), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-lg btn-block" %>

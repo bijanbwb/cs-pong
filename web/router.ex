@@ -16,6 +16,8 @@ defmodule Pong.Router do
   scope "/", Pong do
     pipe_through :browser # Use the default browser stack
 
+    resources "/players", PlayerController
+
     get "/", PageController, :index
   end
 
