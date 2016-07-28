@@ -64,6 +64,11 @@ form.link, form.button {
   font-size: 2em;
 }
 
+/* Match styles */
+.match-list-item {
+  font-size: 2em;
+}
+
 /* Customize container */
 @media (min-width: 768px) {
   .container {
