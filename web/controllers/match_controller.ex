@@ -3,6 +3,8 @@ defmodule Pong.MatchController do
 
   alias Pong.Match
 
+  plug :scrub_params, "match" when action in [:create, :update]
+
   def index(conn, _params) do
     matches = Repo.all(Match)
     render(conn, "index.html", matches: matches)
