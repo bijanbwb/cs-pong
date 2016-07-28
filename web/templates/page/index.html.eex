@@ -5,8 +5,8 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-4">
-    <a href="#" class="btn btn-success btn-lg btn-block">New Match</a>
+    <%= link "New Match", to: match_path(@conn, :new), class: "btn btn-success btn-lg btn-block" %>
     <%= link "Player Stats", to: player_path(@conn, :index), class: "btn btn-primary btn-lg btn-block" %>
-    <a href="#" class="btn btn-info btn-lg btn-block">Match History</a>
+    <%= link "Match History", to: match_path(@conn, :index), class: "btn btn-info btn-lg btn-block" %>
   </div>
 </div>
