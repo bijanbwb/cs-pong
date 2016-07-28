@@ -37,4 +37,4 @@
   </tbody>
 </table>
 
-<%= link "New player", to: player_path(@conn, :new) %>
+<%= link "New Player", to: player_path(@conn, :new), class: "btn btn-success btn-lg btn-block" %>
