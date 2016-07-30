@@ -3,7 +3,7 @@ defmodule Pong.MatchTest do
 
   alias Pong.Match
 
-  @valid_attrs %{overtime: true, player_a_id: 42, player_a_points: 42, player_b_id: 42, player_b_points: 42, player_loss_id: 42, player_win_id: 42, total_points: 42}
+  @valid_attrs %{player_a_id: 42, player_a_points: 42, player_b_id: 42, player_b_points: 42}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

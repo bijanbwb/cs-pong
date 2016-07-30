@@ -40,7 +40,7 @@ defmodule Pong.PlayerView do
   @doc """
   Win-loss percentage as a string value.
   """
-  @spec win_loss_percentage(Player) :: string
+  @spec win_loss_percentage(Player) :: String
   def win_loss_percentage(%Player{id: id}) do
     player = Repo.get(Player, id)
     if total_matches(player) > 0 do
@@ -88,7 +88,7 @@ defmodule Pong.PlayerView do
   All-time total point differential. This number could potentially be positive
   or negative.
   """
-  @spec total_points_differential(Player) :: string
+  @spec total_points_differential(Player) :: String
   def total_points_differential(%Player{id: id}) do
     player = Repo.get(Player, id)
     differential = total_points_scored(player) - total_points_against(player)
@@ -103,7 +103,7 @@ defmodule Pong.PlayerView do
   Player avatar from user-entered URL. Or default avatar if one has not been
   entered yet.
   """
-  @spec avatar(Player) :: string
+  @spec avatar(Player) :: String
   def avatar(%Player{id: id}) do
     player = Repo.get(Player, id)
     if player.avatar_url do

@@ -3,7 +3,7 @@ defmodule Pong.PlayerTest do
 
   alias Pong.Player
 
-  @valid_attrs %{avatar_url: "some content", losses: 42, name: "some content", total_matches: 42, total_points: 42, total_points_against: 42, total_points_differential: 42, wins: 42}
+  @valid_attrs %{avatar_url: "some content", name: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

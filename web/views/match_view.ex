@@ -8,7 +8,7 @@ defmodule Pong.MatchView do
   @doc """
   The name of Player A in a match.
   """
-  @spec player_a_name(Match) :: string
+  @spec player_a_name(Match) :: String
   def player_a_name(%Match{id: id}) do
     match = Repo.get(Match, id)
     players = Repo.all(Player)
@@ -19,7 +19,7 @@ defmodule Pong.MatchView do
   @doc """
   The name of Player B in a match.
   """
-  @spec player_b_name(Match) :: string
+  @spec player_b_name(Match) :: String
   def player_b_name(%Match{id: id}) do
     match = Repo.get(Match, id)
     players = Repo.all(Player)
@@ -56,7 +56,7 @@ defmodule Pong.MatchView do
   @doc """
   The name of the player who won the match.
   """
-  @spec player_win_name(Match) :: string
+  @spec player_win_name(Match) :: String
   def player_win_name(%Match{id: id}) do
     match = Repo.get(Match, id)
     players = Repo.all(Player)
@@ -67,7 +67,7 @@ defmodule Pong.MatchView do
   @doc """
   The name of the player who lost the match.
   """
-  @spec player_loss_name(Match) :: string
+  @spec player_loss_name(Match) :: String
   def player_loss_name(%Match{id: id}) do
     match = Repo.get(Match, id)
     players = Repo.all(Player)

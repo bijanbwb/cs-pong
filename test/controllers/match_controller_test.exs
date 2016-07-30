@@ -2,7 +2,8 @@ defmodule Pong.MatchControllerTest do
   use Pong.ConnCase
 
   alias Pong.Match
-  @valid_attrs %{overtime: true, player_a_id: 42, player_a_points: 42, player_b_id: 42, player_b_points: 42, player_loss_id: 42, player_win_id: 42, total_points: 42}
+  alias Pong.Player
+  @valid_attrs %{player_a_id: 42, player_a_points: 42, player_b_id: 42, player_b_points: 42}
   @invalid_attrs %{}
 
   test "lists all entries on index", %{conn: conn} do
@@ -27,7 +28,9 @@ defmodule Pong.MatchControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    match = Repo.insert! %Match{}
+    player_a = Repo.insert! %Player{}
+    player_b = Repo.insert! %Player{}
+    match = Repo.insert! %Match{player_a_id: player_a.id, player_b_id: player_b.id}
     conn = get conn, match_path(conn, :show, match)
     assert html_response(conn, 200) =~ "Match Details"
   end

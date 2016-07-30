@@ -2,7 +2,7 @@ defmodule Pong.PlayerControllerTest do
   use Pong.ConnCase
 
   alias Pong.Player
-  @valid_attrs %{avatar_url: "some content", losses: 42, name: "some content", total_matches: 42, total_points: 42, total_points_against: 42, total_points_differential: 42, wins: 42}
+  @valid_attrs %{avatar_url: "some content", name: "some content"}
   @invalid_attrs %{}
 
   test "lists all entries on index", %{conn: conn} do
@@ -29,7 +29,7 @@ defmodule Pong.PlayerControllerTest do
   test "shows chosen resource", %{conn: conn} do
     player = Repo.insert! %Player{}
     conn = get conn, player_path(conn, :show, player)
-    assert html_response(conn, 200) =~ "Player Details"
+    assert html_response(conn, 200) =~ "Record"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
