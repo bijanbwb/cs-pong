@@ -43,8 +43,11 @@ defmodule Pong.PlayerView do
   @spec win_loss_percentage(Player) :: string
   def win_loss_percentage(%Player{id: id}) do
     player = Repo.get(Player, id)
-    percentage = Float.to_string(wins(player) / total_matches(player) * 100, decimals: 0)
-    percentage <> "%"
+    if total_matches(player) > 0 do
+      Float.to_string(wins(player) / total_matches(player) * 100, decimals: 0) <> "%"
+    else
+      "0%"
+    end
   end
 
   @doc """
@@ -93,6 +96,20 @@ defmodule Pong.PlayerView do
       "+" <> Integer.to_string(differential)
     else
       differential
+    end
+  end
+
+  @doc """
+  Player avatar from user-entered URL. Or default avatar if one has not been
+  entered yet.
+  """
+  @spec avatar(Player) :: string
+  def avatar(%Player{id: id}) do
+    player = Repo.get(Player, id)
+    if player.avatar_url do
+      player.avatar_url
+    else
+      "/images/default_avatar.png"
     end
   end
 end
