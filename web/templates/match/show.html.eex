@@ -1,15 +1,15 @@
 <h2>Match Details</h2>
 
 <ul>
-  <li><strong>Match #:</strong><%= @match.id %></li>
-  <li><strong>Won:</strong><%= @match.player_win_id %></li>
-  <li><strong>Lost:</strong><%= @match.player_loss_id %></li>
-  <li><strong>Score:</strong><%= @match.player_a_points %>-<%= @match.player_b_points %></li>
+  <li><strong>Match:</strong> #<%= @match.id %></li>
+  <li><strong>Won:</strong> <%= player_win_name(@match) %></li>
+  <li><strong>Lost:</strong> <%= player_loss_name(@match) %></li>
+  <li><strong>Score:</strong> <%= @match.player_a_points %>-<%= @match.player_b_points %></li>
 </ul>
 
 <ul>
-  <li><strong>All-time Record for <%= @match.player_a_id %> and <%= @match.player_b_id %>:</strong></li>
-  <li><strong>All-time Point Differential for <%= @match.player_a_id %> and <%= @match.player_b_id %>:</strong></li>
+  <li><strong>All-time Record for <%= player_a_name(@match) %> and <%= player_b_name(@match) %>:</strong></li>
+  <li><strong>All-time Point Differential for <%= player_a_name(@match) %> and <%= player_b_name(@match) %>:</strong></li>
 </ul>
 
 <%= link "Back", to: match_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
