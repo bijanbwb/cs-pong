@@ -1,10 +1,8 @@
 <div class="row">
-  <span class="logo"></span>
-  <span class="cs-logo"></span>
-</div>
+  <div class="col-md-5 col-md-offset-3">
+    <span class="logo"></span>
+    <span class="cs-logo"></span>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-4">
     <%= link "New Match", to: match_path(@conn, :new), class: "btn btn-success btn-lg btn-block" %>
     <%= link "Player Stats", to: player_path(@conn, :index), class: "btn btn-primary btn-lg btn-block" %>
     <%= link "Match History", to: match_path(@conn, :index), class: "btn btn-info btn-lg btn-block" %>

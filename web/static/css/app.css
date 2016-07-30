@@ -28,7 +28,7 @@ form.link, form.button {
 .logo {
   width: 256px;
   height: 256px;
-  display: block;
+  display: flex;
   margin-bottom: 1em;
   background-image: url("/images/logo.png");
   background-size: 256px 256px;
@@ -38,7 +38,7 @@ form.link, form.button {
 .cs-logo {
   width: 256px;
   height: 49px;
-  display: block;
+  display: flex;
   margin-bottom: 1em;
   background-image: url("/images/cs-logo.png");
   background-size: 256px 49px;

@@ -4,8 +4,6 @@ defmodule Pong.Player do
   schema "players" do
     field :name, :string
     field :avatar_url, :string
-    field :wins, :integer
-    field :losses, :integer
     field :total_matches, :integer
     field :total_points, :integer
     field :total_points_against, :integer

@@ -13,8 +13,8 @@
 <%= for player <- @players do %>
     <tr class="player-list-item">
       <td><%= link player.name, to: player_path(@conn, :show, player) %></td>
-      <td><%= player.wins %></td>
-      <td><%= player.losses %></td>
+      <td><%= wins(player) %></td>
+      <td><%= losses(player) %></td>
       <td><%= player.total_points_differential %></td>
     </tr>
 <% end %>

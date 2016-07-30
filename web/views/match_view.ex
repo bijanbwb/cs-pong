@@ -100,7 +100,7 @@ defmodule Pong.MatchView do
   @spec total_matches :: integer
   def total_matches do
     matches = Repo.all(Match)
-    length(matches)
+    Enum.count(matches)
   end
 
   @doc """
@@ -109,6 +109,6 @@ defmodule Pong.MatchView do
   @spec total_points :: integer
   def total_points do
     matches = Repo.all(Match)
-    all_player_a_points = Enum.reduce(matches, 0, fn(m, acc) -> m.player_a_points + m.player_b_points + acc end)
+    Enum.reduce(matches, 0, fn(m, acc) -> m.player_a_points + m.player_b_points + acc end)
   end
 end
