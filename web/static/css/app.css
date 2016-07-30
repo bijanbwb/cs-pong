@@ -65,11 +65,16 @@ form.link, form.button {
 }
 
 /* Match styles */
-.match-stats {
+.match-stats, .match-player-stats {
   font-size: 1.2em;
 }
 .match-list-item {
-  font-size: 2em;
+  font-size: 1.5em;
+}
+.overtime {
+  font-size: .4em;
+  color: firebrick;
+  vertical-align: super;
 }
 
 /* Customize container */
