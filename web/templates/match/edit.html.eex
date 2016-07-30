@@ -32,12 +32,6 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :overtime, "Overtime?", class: "control-label" %>
-    <%= checkbox f, :overtime, class: "form-control checkbox" %>
-    <%= error_tag f, :overtime %>
-  </div>
-
-  <div class="form-group">
     <%= submit "Submit", class: "btn btn-success btn-lg btn-block" %>
     <%= link "Back", to: match_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
   </div>
