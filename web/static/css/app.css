@@ -54,6 +54,8 @@ form.link, form.button {
 }
 
 /* Player styles */
+.player-card {
+}
 .avatar-image {
   border-radius: 50%;
   display: block;
@@ -61,7 +63,7 @@ form.link, form.button {
 }
 
 .player-list-item {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 /* Match styles */

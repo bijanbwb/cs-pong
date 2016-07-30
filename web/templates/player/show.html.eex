@@ -1,21 +1,27 @@
-<h2><%= @player.name %></h2>
-<%= tag(:img, src: @player.avatar_url, alt: @player.name, class: "avatar-image") %>
+<div class="row">
+  <div class="player-card col-md-5 col-md-offset-3">
+    <%= tag(:img, src: @player.avatar_url, alt: @player.name, class: "avatar-image") %>
+    <h2><%= @player.name %></h2>
+    <h3>Record: <%= wins(@player) %>-<%= losses(@player) %></h3>
 
-<h3>Player Details</h3>
-<ul>
-  <li><strong>Wins:</strong><%= @player.wins %></li>
-  <li><strong>Losses:</strong><%= @player.losses %></li>
-  <li><strong>Win-loss Percentage:</strong><%= @player.losses %></li>
-  <li><strong>Games Played:</strong><%= @player.total_matches %></li>
-  <li><strong>All-time Points:</strong><%= @player.total_points %></li>
-  <li><strong>All-time Points Against:</strong><%= @player.total_points_against %></li>
-  <li><strong>All-time Points Differential:</strong><%= @player.total_points_differential %></li>
-</ul>
+    <ul>
+      <li><strong>Win-loss Percentage:</strong> <%= win_loss_percentage(@player) %></li>
+      <li><strong>Games Played:</strong> <%= total_matches(@player) %></li>
+      <li><strong>All-time Points:</strong> <%= total_points_scored(@player) %></li>
+      <li><strong>All-time Points Against:</strong> <%= total_points_against(@player) %></li>
+      <li><strong>All-time Points Differential:</strong> <%= total_points_differential(@player) %></li>
+    </ul>
 
-<h3>Recent Matches</h3>
-<ul>
-</ul>
+    <h3>Recent Matches</h3>
+    <ul>
+    </ul>
+  </div>
+</div>
 
-<%= link "Back", to: player_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
-<%= link "Edit", to: player_path(@conn, :edit, @player), class: "btn btn-default btn-lg btn-block" %>
-<%= link "Delete", to: player_path(@conn, :delete, @player), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-lg btn-block" %>
+<div class="row">
+  <div class="player-card col-md-5 col-md-offset-3">
+    <%= link "Back", to: player_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
+    <%= link "Edit", to: player_path(@conn, :edit, @player), class: "btn btn-default btn-lg btn-block" %>
+    <%= link "Delete", to: player_path(@conn, :delete, @player), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-lg btn-block" %>
+  </div>
+</div>

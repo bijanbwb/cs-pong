@@ -15,7 +15,7 @@
       <td><%= link player.name, to: player_path(@conn, :show, player) %></td>
       <td><%= wins(player) %></td>
       <td><%= losses(player) %></td>
-      <td><%= player.total_points_differential %></td>
+      <td><%= total_points_differential(player) %></td>
     </tr>
 <% end %>
   </tbody>
