@@ -112,4 +112,64 @@ defmodule Pong.PlayerView do
       "/images/default_avatar.png"
     end
   end
+
+  @doc """
+  Win-loss percentage for the player with the highest all-time value.
+  """
+  @spec highest_win_percentage :: string
+  def highest_win_percentage do
+    players = Repo.all(Player)
+    highest_winning_player = Enum.max_by(players, fn(p) -> win_loss_percentage(p) end)
+    win_loss_percentage(highest_winning_player)
+  end
+
+  @doc """
+  Name of the player with the highest all-time win percentage.
+  """
+  @spec highest_win_percentage_name :: string
+  def highest_win_percentage_name do
+    players = Repo.all(Player)
+    highest_winning_player = Enum.max_by(players, fn(p) -> win_loss_percentage(p) end)
+    highest_winning_player.name
+  end
+
+  @doc """
+  Number of wins for the player with the most all-time wins.
+  """
+  @spec most_wins :: string
+  def most_wins do
+    players = Repo.all(Player)
+    winningest_player = Enum.max_by(players, fn(p) -> wins(p) end)
+    wins(winningest_player)
+  end
+
+  @doc """
+  Name of the player with the most all-time wins.
+  """
+  @spec most_wins_name :: string
+  def most_wins_name do
+    players = Repo.all(Player)
+    winningest_player = Enum.max_by(players, fn(p) -> wins(p) end)
+    winningest_player.name
+  end
+
+  @doc """
+  Total points for the player with the most all-time points.
+  """
+  @spec most_points :: string
+  def most_points do
+    players = Repo.all(Player)
+    highest_scoring_player = Enum.max_by(players, fn(p) -> total_points_scored(p) end)
+    total_points_scored(highest_scoring_player)
+  end
+
+  @doc """
+  Name of the player with the most all-time points.
+  """
+  @spec most_points_name :: string
+  def most_points_name do
+    players = Repo.all(Player)
+    highest_scoring_player = Enum.max_by(players, fn(p) -> total_points_scored(p) end)
+    highest_scoring_player.name
+  end
 end

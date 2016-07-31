@@ -5,9 +5,18 @@
     <h3>Stats</h3>
     <table class="table match-stats">
       <tbody>
-        <tr><td>All-time Best Win Percentage:</td><td><%= # %></td></tr>
-        <tr><td>All-time Most Wins:</td><td><%= # %></td></tr>
-        <tr><td>All-time Most Points:</td><td><%= # %></td></tr>
+        <tr>
+          <td>All-time Best Win Percentage:</td>
+          <td><%= highest_win_percentage %> (<%= highest_win_percentage_name %>)</td>
+        </tr>
+        <tr>
+          <td>All-time Most Wins:</td>
+          <td><%= most_wins %> (<%= most_wins_name %>)</td>
+        </tr>
+        <tr>
+          <td>All-time Most Points:</td>
+          <td><%= most_points %> (<%= most_points_name %>)</td>
+        </tr>
       <tbody>
     </table>
   </div>
