@@ -1,17 +1,47 @@
-<div class="row">
-  <div class="player-card col-md-5 col-md-offset-3">
+<div class="player-card row">
+  <div class="col-md-5 col-md-offset-3">
     <%= tag(:img, src: avatar(@player), alt: @player.name, class: "avatar-image") %>
     <h2><%= @player.name %></h2>
-    <h3>Record: <%= wins(@player) %>-<%= losses(@player) %></h3>
+  </div>
+</div>
 
-    <ul>
-      <li><strong>Win-loss Percentage:</strong> <%= win_loss_percentage(@player) %></li>
-      <li><strong>Games Played:</strong> <%= total_matches(@player) %></li>
-      <li><strong>All-time Points:</strong> <%= total_points_scored(@player) %></li>
-      <li><strong>All-time Points Against:</strong> <%= total_points_against(@player) %></li>
-      <li><strong>All-time Points Differential:</strong> <%= total_points_differential(@player) %></li>
-    </ul>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <h3>Stats</h3>
+    <table class="table player-stats">
+      <tbody>
+        <tr>
+          <td>Record:</td>
+          <td><%= wins(@player) %>-<%= losses(@player) %></td>
+        </tr>
+        <tr>
+          <td>Win-loss Percentage:</td>
+          <td><%= win_loss_percentage(@player) %></td>
+        </tr>
+        <tr>
+          <td>Games Played:</td>
+          <td><%= total_matches(@player) %></td>
+        </tr>
+        <tr>
+          <td>All-time Points Scored:</td>
+          <td><%= total_points_scored(@player) %></td>
+        </tr>
+        <tr>
+          <td>All-time Points Against:</td>
+          <td><%= total_points_against(@player) %></td>
+        </tr>
+        <tr>
+          <td>All-time Points Differential:</td>
+          <td><%= total_points_differential(@player) %></td>
+        </tr>
+      <tbody>
+    </table>
 
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
     <h3>Recent Matches</h3>
     <ul>
     </ul>
@@ -19,7 +49,7 @@
 </div>
 
 <div class="row">
-  <div class="player-card col-md-5 col-md-offset-3">
+  <div class="col-md-5 col-md-offset-3">
     <%= link "Back", to: player_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
     <%= link "Edit", to: player_path(@conn, :edit, @player), class: "btn btn-default btn-lg btn-block" %>
     <%= link "Delete", to: player_path(@conn, :delete, @player), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-lg btn-block" %>
