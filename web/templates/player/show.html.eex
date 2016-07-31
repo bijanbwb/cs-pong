@@ -1,7 +1,7 @@
-<div class="player-card row">
-  <div class="col-md-5 col-md-offset-3">
+<div class="row">
+  <div class="player-card col-md-5 col-md-offset-3">
     <%= tag(:img, src: avatar(@player), alt: @player.name, class: "avatar-image") %>
-    <h2><%= @player.name %></h2>
+    <h2 class="player-name"><%= @player.name %></h2>
   </div>
 </div>
 
@@ -43,8 +43,40 @@
 <div class="row">
   <div class="col-md-5 col-md-offset-3">
     <h3>Recent Matches</h3>
-    <ul>
-    </ul>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Match #</th>
+          <th>Won</th>
+          <th>Lost</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for match <- recent_matches(@player) do %>
+          <tr class="match-list-item">
+            <td>
+              <%= link match.id, to: match_path(@conn, :show, match) %>
+            </td>
+            <td>
+              <%= link to: player_path(@conn, :show, MatchView.player_win_id(match)) do %>
+                <%= MatchView.player_win_name(match) %>
+              <% end %>
+            </td>
+            <td>
+              <%= link to: player_path(@conn, :show, MatchView.player_loss_id(match)) do %>
+                <%= MatchView.player_loss_name(match) %>
+              <% end %>
+            </td>
+            <td>
+              <%= link to: match_path(@conn, :show, match) do %>
+              <%= match.player_a_points %>-<%= match.player_b_points %><%= if MatchView.overtime?(match) do %><sup class="overtime">OT</sup><% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
 

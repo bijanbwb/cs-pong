@@ -16,6 +16,16 @@ defmodule Pong.PlayerView do
   end
 
   @doc """
+  List of recent matches that the player has participated in.
+  """
+  @spec recent_matches(Player) :: List
+  def recent_matches(%Player{id: id}) do
+    player = Repo.get(Player, id)
+    matches = Repo.all(Match)
+    player_matches = Enum.filter(matches, fn(m) -> player.id == m.player_a_id || player.id == m.player_b_id end)
+  end
+
+  @doc """
   Total number of wins for the player.
   """
   @spec wins(Player) :: integer

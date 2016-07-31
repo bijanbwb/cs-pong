@@ -62,8 +62,12 @@ h1, h2, h3 {
 
 /* Player styles */
 .player-card {
-  width: 50%;
+  width: 300px;
   margin: 0 auto;
+}
+
+.player-name {
+  text-align: center;
 }
 
 .avatar-image {
