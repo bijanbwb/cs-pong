@@ -8,14 +8,14 @@
   <% end %>
 
   <div class="form-group">
-    <%= label f, :player_a_id, "Player A ID", class: "control-label" %>
-    <%= number_input f, :player_a_id, class: "form-control" %>
+    <%= label f, :player_a_id, "Player A", class: "control-label" %>
+    <%= select(f, :player_a_id, ["Bijan": "1", "Nick": "2"], prompt: "Select Player:", class: "form-control") %>
     <%= error_tag f, :player_a_id %>
   </div>
 
   <div class="form-group">
-    <%= label f, :player_b_id, "Player B ID", class: "control-label" %>
-    <%= number_input f, :player_b_id, class: "form-control" %>
+    <%= label f, :player_b_id, "Player B", class: "control-label" %>
+    <%= select(f, :player_a_id, ["Bijan": "1", "Nick": "2"], prompt: "Select Player:", class: "form-control") %>
     <%= error_tag f, :player_b_id %>
   </div>
 

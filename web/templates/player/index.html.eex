@@ -1,25 +1,47 @@
-<h2>Players</h2>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <h2>Players</h2>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Player Name</th>
-      <th>Wins</th>
-      <th>Losses</th>
-      <th>All-time Point Differential</th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for player <- @players do %>
-    <tr class="player-list-item">
-      <td><%= link player.name, to: player_path(@conn, :show, player) %></td>
-      <td><%= wins(player) %></td>
-      <td><%= losses(player) %></td>
-      <td><%= total_points_differential(player) %></td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+    <h3>Stats</h3>
+    <table class="table match-stats">
+      <tbody>
+        <tr><td>All-time Best Win Percentage:</td><td><%= # %></td></tr>
+        <tr><td>All-time Most Wins:</td><td><%= # %></td></tr>
+        <tr><td>All-time Most Points:</td><td><%= # %></td></tr>
+      <tbody>
+    </table>
+  </div>
+</div>
 
-<%= link "New Player", to: player_path(@conn, :new), class: "btn btn-success btn-lg btn-block" %>
-<%= link "Back", to: "/", class: "btn btn-default btn-lg btn-block" %>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <h3>Roster</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Player Name</th>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>All-time Point Differential</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for player <- @players do %>
+          <tr class="player-list-item">
+            <td><%= link player.name, to: player_path(@conn, :show, player) %></td>
+            <td><%= wins(player) %></td>
+            <td><%= losses(player) %></td>
+            <td><%= total_points_differential(player) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <%= link "New Player", to: player_path(@conn, :new), class: "btn btn-success btn-lg btn-block" %>
+    <%= link "Back", to: "/", class: "btn btn-default btn-lg btn-block" %>
+  </div>
+</div>
