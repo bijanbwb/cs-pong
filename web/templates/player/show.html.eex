@@ -1,7 +1,9 @@
 <div class="row">
-  <div class="player-card col-md-5 col-md-offset-3">
-    <%= tag(:img, src: avatar(@player), alt: @player.name, class: "avatar-image") %>
-    <h2 class="player-name"><%= @player.name %></h2>
+  <div class="col-md-5 col-md-offset-3">
+    <div class="player-card">
+      <%= tag(:img, src: avatar(@player), alt: @player.name, class: "avatar-image") %>
+      <span class="player-name"><%= @player.name %></span>
+    </div>
   </div>
 </div>
 
@@ -36,7 +38,6 @@
         </tr>
       <tbody>
     </table>
-
   </div>
 </div>
 

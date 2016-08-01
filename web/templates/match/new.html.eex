@@ -1,39 +1,43 @@
-<h2>New Match</h2>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <h2>New Match</h2>
 
-<%= form_for @changeset, match_path(@conn, :create), fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
+    <%= form_for @changeset, match_path(@conn, :create), fn f -> %>
+      <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Oops, something went wrong! Please check the errors below.</p>
+        </div>
+      <% end %>
 
-  <div class="form-group">
-    <%= label f, :player_a_id, "Player A", class: "control-label" %>
-    <%= select(f, :player_a_id, ["Bijan": "1", "Nick": "2"], prompt: "Select Player:", class: "form-control") %>
-    <%= error_tag f, :player_a_id %>
+      <div class="form-group">
+        <%= label f, :player_a_id, "Player 1 ID", class: "control-label" %>
+        <%= number_input f, :player_a_id, class: "form-control" %>
+        <%= error_tag f, :player_a_id %>
+      </div>
+
+      <div class="form-group">
+        <%= label f, :player_b_id, "Player 2 ID", class: "control-label" %>
+        <%= number_input f, :player_b_id, class: "form-control" %>
+        <%= error_tag f, :player_b_id %>
+      </div>
+
+      <div class="form-group">
+        <%= label f, :player_a_points, "Player 1 Score",class: "control-label" %>
+        <%= number_input f, :player_a_points, class: "form-control" %>
+        <%= error_tag f, :player_a_points %>
+      </div>
+
+      <div class="form-group">
+        <%= label f, :player_b_points, "Player 2 Score", class: "control-label" %>
+        <%= number_input f, :player_b_points, class: "form-control" %>
+        <%= error_tag f, :player_b_points %>
+      </div>
+
+      <div class="form-group">
+        <%= submit "Submit", class: "btn btn-success btn-lg btn-block" %>
+        <%= link "Add Player", to: player_path(@conn, :new), class: "btn btn-primary btn-lg btn-block" %>
+        <%= link "Back", to: page_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="form-group">
-    <%= label f, :player_b_id, "Player B", class: "control-label" %>
-    <%= select(f, :player_a_id, ["Bijan": "1", "Nick": "2"], prompt: "Select Player:", class: "form-control") %>
-    <%= error_tag f, :player_b_id %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :player_a_points, "Player A Score",class: "control-label" %>
-    <%= number_input f, :player_a_points, class: "form-control" %>
-    <%= error_tag f, :player_a_points %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :player_b_points, "Player B Score", class: "control-label" %>
-    <%= number_input f, :player_b_points, class: "form-control" %>
-    <%= error_tag f, :player_b_points %>
-  </div>
-
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-success btn-lg btn-block" %>
-    <%= link "Add Player", to: player_path(@conn, :new), class: "btn btn-primary btn-lg btn-block" %>
-    <%= link "Back", to: page_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
-  </div>
-<% end %>
+</div>

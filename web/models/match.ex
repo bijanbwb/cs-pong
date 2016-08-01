@@ -17,5 +17,7 @@ defmodule Pong.Match do
     struct
     |> cast(params, [:player_a_id, :player_b_id, :player_a_points, :player_b_points])
     |> validate_required([:player_a_id, :player_b_id, :player_a_points, :player_b_points])
+    |> validate_inclusion(:player_a_points, 0..21, message: "Score must be between 0 and 21 points.")
+    |> validate_inclusion(:player_b_points, 0..21, message: "Score must be between 0 and 21 points.")
   end
 end

@@ -25,7 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= for match <- @matches do %>
+        <%= for match <- matches_sorted do %>
           <tr class="match-list-item">
             <td>
               <%= link match.id, to: match_path(@conn, :show, match) %>

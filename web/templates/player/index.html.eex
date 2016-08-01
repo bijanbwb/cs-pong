@@ -37,7 +37,10 @@
       <tbody>
         <%= for player <- @players do %>
           <tr class="player-list-item">
-            <td><%= link player.name, to: player_path(@conn, :show, player) %></td>
+            <td>
+              <%= tag(:img, src: avatar(player), alt: player.name, class: "avatar-image-small") %>
+              <%= link player.name, to: player_path(@conn, :show, player) %>
+            </td>
             <td><%= wins(player) %></td>
             <td><%= losses(player) %></td>
             <td><%= total_points_differential(player) %></td>

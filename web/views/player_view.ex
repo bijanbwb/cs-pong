@@ -129,8 +129,10 @@ defmodule Pong.PlayerView do
   @spec highest_win_percentage :: string
   def highest_win_percentage do
     players = Repo.all(Player)
-    highest_winning_player = Enum.max_by(players, fn(p) -> win_loss_percentage(p) end)
-    win_loss_percentage(highest_winning_player)
+    if Enum.count(players) > 0 do
+      highest_winning_player = Enum.max_by(players, fn(p) -> win_loss_percentage(p) end)
+      win_loss_percentage(highest_winning_player)
+    end
   end
 
   @doc """
@@ -139,8 +141,10 @@ defmodule Pong.PlayerView do
   @spec highest_win_percentage_name :: string
   def highest_win_percentage_name do
     players = Repo.all(Player)
-    highest_winning_player = Enum.max_by(players, fn(p) -> win_loss_percentage(p) end)
-    highest_winning_player.name
+    if Enum.count(players) > 0 do
+      highest_winning_player = Enum.max_by(players, fn(p) -> win_loss_percentage(p) end)
+      highest_winning_player.name
+    end
   end
 
   @doc """
@@ -149,8 +153,10 @@ defmodule Pong.PlayerView do
   @spec most_wins :: string
   def most_wins do
     players = Repo.all(Player)
-    winningest_player = Enum.max_by(players, fn(p) -> wins(p) end)
-    wins(winningest_player)
+    if Enum.count(players) > 0 do
+      winningest_player = Enum.max_by(players, fn(p) -> wins(p) end)
+      wins(winningest_player)
+    end
   end
 
   @doc """
@@ -159,8 +165,10 @@ defmodule Pong.PlayerView do
   @spec most_wins_name :: string
   def most_wins_name do
     players = Repo.all(Player)
-    winningest_player = Enum.max_by(players, fn(p) -> wins(p) end)
-    winningest_player.name
+    if Enum.count(players) > 0 do
+      winningest_player = Enum.max_by(players, fn(p) -> wins(p) end)
+      winningest_player.name
+    end
   end
 
   @doc """
@@ -169,8 +177,10 @@ defmodule Pong.PlayerView do
   @spec most_points :: string
   def most_points do
     players = Repo.all(Player)
-    highest_scoring_player = Enum.max_by(players, fn(p) -> total_points_scored(p) end)
-    total_points_scored(highest_scoring_player)
+    if Enum.count(players) > 0 do
+      highest_scoring_player = Enum.max_by(players, fn(p) -> total_points_scored(p) end)
+      total_points_scored(highest_scoring_player)
+    end
   end
 
   @doc """
@@ -179,7 +189,9 @@ defmodule Pong.PlayerView do
   @spec most_points_name :: string
   def most_points_name do
     players = Repo.all(Player)
-    highest_scoring_player = Enum.max_by(players, fn(p) -> total_points_scored(p) end)
-    highest_scoring_player.name
+    if Enum.count(players) > 0 do
+      highest_scoring_player = Enum.max_by(players, fn(p) -> total_points_scored(p) end)
+      highest_scoring_player.name
+    end
   end
 end

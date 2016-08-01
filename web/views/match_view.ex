@@ -3,6 +3,7 @@ defmodule Pong.MatchView do
 
   alias Pong.Match
   alias Pong.Player
+  alias Pong.PlayerView
   alias Pong.Repo
 
   @doc """
@@ -13,7 +14,7 @@ defmodule Pong.MatchView do
     match = Repo.get(Match, id)
     players = Repo.all(Player)
     player = Enum.find(players, fn(p) -> p.id == match.player_a_id end)
-    player.name
+    if player, do: player.name
   end
 
   @doc """
@@ -24,7 +25,35 @@ defmodule Pong.MatchView do
     match = Repo.get(Match, id)
     players = Repo.all(Player)
     player = Enum.find(players, fn(p) -> p.id == match.player_b_id end)
-    player.name
+    if player, do: player.name
+  end
+
+  @doc """
+  The avatar for Player A in a match.
+  """
+  @spec player_a_avatar(Match) :: String
+  def player_a_avatar(%Match{id: id}) do
+    match = Repo.get(Match, id)
+    player_a = Repo.get(Player, match.player_a_id)
+    if player_a do
+      PlayerView.avatar(player_a)
+    else
+      "/images/default_avatar.png"
+    end
+  end
+
+  @doc """
+  The avatar for Player B in a match.
+  """
+  @spec player_b_avatar(Match) :: String
+  def player_b_avatar(%Match{id: id}) do
+    match = Repo.get(Match, id)
+    player_b = Repo.get(Player, match.player_b_id)
+    if player_b do
+      PlayerView.avatar(player_b)
+    else
+      "/images/default_avatar.png"
+    end
   end
 
   @doc """
@@ -61,7 +90,7 @@ defmodule Pong.MatchView do
     match = Repo.get(Match, id)
     players = Repo.all(Player)
     player = Enum.find(players, fn(p) -> p.id == player_win_id(match) end)
-    player.name
+    if player, do: player.name
   end
 
   @doc """
@@ -72,7 +101,7 @@ defmodule Pong.MatchView do
     match = Repo.get(Match, id)
     players = Repo.all(Player)
     player = Enum.find(players, fn(p) -> p.id == player_loss_id(match) end)
-    player.name
+    if player, do: player.name
   end
 
   @doc """
@@ -110,5 +139,25 @@ defmodule Pong.MatchView do
   def total_points do
     matches = Repo.all(Match)
     Enum.reduce(matches, 0, fn(m, acc) -> m.player_a_points + m.player_b_points + acc end)
+  end
+
+  @doc """
+  List of all player ids.
+  """
+  @spec player_ids :: List
+  def player_ids do
+    players = Repo.all(Player)
+    player_ids = []
+    Enum.map(players, fn(p) -> player_ids ++ p.id end)
+  end
+
+  @doc """
+  List of all matches sorted in reverse by creation date.
+  """
+  @spec matches_sorted :: List
+  def matches_sorted do
+    Repo.all(Match)
+    |> Enum.sort
+    |> Enum.reverse
   end
 end
