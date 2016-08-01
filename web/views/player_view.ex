@@ -22,7 +22,7 @@ defmodule Pong.PlayerView do
   def recent_matches(%Player{id: id}) do
     player = Repo.get(Player, id)
     matches = Repo.all(Match)
-    player_matches = Enum.filter(matches, fn(m) -> player.id == m.player_a_id || player.id == m.player_b_id end)
+    Enum.filter(matches, fn(m) -> player.id == m.player_a_id || player.id == m.player_b_id end)
   end
 
   @doc """
@@ -126,7 +126,7 @@ defmodule Pong.PlayerView do
   @doc """
   Win-loss percentage for the player with the highest all-time value.
   """
-  @spec highest_win_percentage :: string
+  @spec highest_win_percentage :: String
   def highest_win_percentage do
     players = Repo.all(Player)
     if Enum.count(players) > 0 do
@@ -138,7 +138,7 @@ defmodule Pong.PlayerView do
   @doc """
   Name of the player with the highest all-time win percentage.
   """
-  @spec highest_win_percentage_name :: string
+  @spec highest_win_percentage_name :: String
   def highest_win_percentage_name do
     players = Repo.all(Player)
     if Enum.count(players) > 0 do
@@ -150,7 +150,7 @@ defmodule Pong.PlayerView do
   @doc """
   Number of wins for the player with the most all-time wins.
   """
-  @spec most_wins :: string
+  @spec most_wins :: String
   def most_wins do
     players = Repo.all(Player)
     if Enum.count(players) > 0 do
@@ -162,7 +162,7 @@ defmodule Pong.PlayerView do
   @doc """
   Name of the player with the most all-time wins.
   """
-  @spec most_wins_name :: string
+  @spec most_wins_name :: String
   def most_wins_name do
     players = Repo.all(Player)
     if Enum.count(players) > 0 do
@@ -174,7 +174,7 @@ defmodule Pong.PlayerView do
   @doc """
   Total points for the player with the most all-time points.
   """
-  @spec most_points :: string
+  @spec most_points :: String
   def most_points do
     players = Repo.all(Player)
     if Enum.count(players) > 0 do
@@ -186,7 +186,7 @@ defmodule Pong.PlayerView do
   @doc """
   Name of the player with the most all-time points.
   """
-  @spec most_points_name :: string
+  @spec most_points_name :: String
   def most_points_name do
     players = Repo.all(Player)
     if Enum.count(players) > 0 do

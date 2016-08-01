@@ -3,7 +3,8 @@ defmodule Pong.MatchControllerTest do
 
   alias Pong.Match
   alias Pong.Player
-  @valid_attrs %{player_a_id: 42, player_a_points: 42, player_b_id: 42, player_b_points: 42}
+
+  @valid_attrs %{player_a_id: 1, player_b_id: 2, player_a_points: 21, player_b_points: 19}
   @invalid_attrs %{}
 
   test "lists all entries on index", %{conn: conn} do
@@ -24,7 +25,7 @@ defmodule Pong.MatchControllerTest do
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
     conn = post conn, match_path(conn, :create), match: @invalid_attrs
-    assert html_response(conn, 200) =~ "New Match"
+    assert html_response(conn, 200) =~ "Match"
   end
 
   test "shows chosen resource", %{conn: conn} do
@@ -32,7 +33,7 @@ defmodule Pong.MatchControllerTest do
     player_b = Repo.insert! %Player{}
     match = Repo.insert! %Match{player_a_id: player_a.id, player_b_id: player_b.id}
     conn = get conn, match_path(conn, :show, match)
-    assert html_response(conn, 200) =~ "Match Details"
+    assert html_response(conn, 200) =~ "Match"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do

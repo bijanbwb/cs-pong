@@ -2,6 +2,7 @@ defmodule Pong.PlayerControllerTest do
   use Pong.ConnCase
 
   alias Pong.Player
+
   @valid_attrs %{avatar_url: "some content", name: "some content"}
   @invalid_attrs %{}
 

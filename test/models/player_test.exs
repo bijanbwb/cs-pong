@@ -3,7 +3,7 @@ defmodule Pong.PlayerTest do
 
   alias Pong.Player
 
-  @valid_attrs %{avatar_url: "some content", name: "some content"}
+  @valid_attrs %{name: "PlayerFirstName PlayerLastName", avatar_url: "https://codeschool-directory.s3.amazonaws.com/uploads/member/portrait/18/something.jpg"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
