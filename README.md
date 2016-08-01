@@ -1,6 +1,6 @@
-# Code School Ping Pong Tracker
+# [Code School Ping Pong Tracker](https://codeschool-pong.herokuapp.com/)
 
-![Screenshot](https://cloud.githubusercontent.com/assets/201320/17226235/63d8e0a2-54d6-11e6-9c41-f1d568fd6121.png)
+[![Screenshot](https://cloud.githubusercontent.com/assets/201320/17273010/b6dff0de-5674-11e6-93cb-5985d2aa2979.png)](https://codeschool-pong.herokuapp.com/)
 
 > Track Code School ping pong game results with Elixir and Phoenix!
 
@@ -31,6 +31,6 @@
 
 ## Contributing
 
-Check out the [Inbox](https://github.com/codeschool/practice/issues/1) issue
+Check out the [Inbox](https://github.com/codeschool/pong/issues/1) issue
 to see what is currently on deck.
 

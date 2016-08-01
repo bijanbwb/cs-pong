@@ -1,21 +1,90 @@
-<h2><%= @player.name %></h2>
-<%= tag(:img, src: @player.avatar_url, alt: @player.name, class: "avatar-image") %>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <div class="player-card">
+      <%= tag(:img, src: avatar(@player), alt: @player.name, class: "avatar-image") %>
+      <span class="player-name"><%= @player.name %></span>
+    </div>
+  </div>
+</div>
 
-<h3>Player Details</h3>
-<ul>
-  <li><strong>Wins:</strong><%= @player.wins %></li>
-  <li><strong>Losses:</strong><%= @player.losses %></li>
-  <li><strong>Win-loss Percentage:</strong><%= @player.losses %></li>
-  <li><strong>Games Played:</strong><%= @player.total_matches %></li>
-  <li><strong>All-time Points:</strong><%= @player.total_points %></li>
-  <li><strong>All-time Points Against:</strong><%= @player.total_points_against %></li>
-  <li><strong>All-time Points Differential:</strong><%= @player.total_points_differential %></li>
-</ul>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <h3>Stats</h3>
+    <table class="table player-stats">
+      <tbody>
+        <tr>
+          <td>Record:</td>
+          <td><%= wins(@player) %>-<%= losses(@player) %></td>
+        </tr>
+        <tr>
+          <td>Win-loss Percentage:</td>
+          <td><%= win_loss_percentage(@player) %></td>
+        </tr>
+        <tr>
+          <td>Games Played:</td>
+          <td><%= total_matches(@player) %></td>
+        </tr>
+        <tr>
+          <td>All-time Points Scored:</td>
+          <td><%= total_points_scored(@player) %></td>
+        </tr>
+        <tr>
+          <td>All-time Points Against:</td>
+          <td><%= total_points_against(@player) %></td>
+        </tr>
+        <tr>
+          <td>All-time Points Differential:</td>
+          <td><%= total_points_differential(@player) %></td>
+        </tr>
+      <tbody>
+    </table>
+  </div>
+</div>
 
-<h3>Recent Matches</h3>
-<ul>
-</ul>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <h3>Recent Matches</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Match #</th>
+          <th>Won</th>
+          <th>Lost</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for match <- recent_matches(@player) do %>
+          <tr class="match-list-item">
+            <td>
+              <%= link match.id, to: match_path(@conn, :show, match) %>
+            </td>
+            <td>
+              <%= link to: player_path(@conn, :show, MatchView.player_win_id(match)) do %>
+                <%= MatchView.player_win_name(match) %>
+              <% end %>
+            </td>
+            <td>
+              <%= link to: player_path(@conn, :show, MatchView.player_loss_id(match)) do %>
+                <%= MatchView.player_loss_name(match) %>
+              <% end %>
+            </td>
+            <td>
+              <%= link to: match_path(@conn, :show, match) do %>
+              <%= match.player_a_points %>-<%= match.player_b_points %><%= if MatchView.overtime?(match) do %><sup class="overtime">OT</sup><% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<%= link "Back", to: player_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
-<%= link "Edit", to: player_path(@conn, :edit, @player), class: "btn btn-default btn-lg btn-block" %>
-<%= link "Delete", to: player_path(@conn, :delete, @player), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-lg btn-block" %>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <%= link "Back", to: player_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
+    <%= link "Edit", to: player_path(@conn, :edit, @player), class: "btn btn-default btn-lg btn-block" %>
+    <%= link "Delete", to: player_path(@conn, :delete, @player), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-lg btn-block" %>
+  </div>
+</div>

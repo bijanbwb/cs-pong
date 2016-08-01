@@ -1,17 +1,42 @@
-<h2>Match Details</h2>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <div class="match-card">
+      <%= tag(:img, src: player_a_avatar(@match), alt: player_a_name(@match), class: "avatar-image") %>
+      <%= tag(:img, src: player_b_avatar(@match), alt: player_b_name(@match), class: "avatar-image") %>
+      <span class="player-name"><%= player_a_name(@match) %> vs. <%= player_b_name(@match) %></span>
+    </div>
+  </div>
+</div>
 
-<ul>
-  <li><strong>Match #:</strong><%= @match.id %></li>
-  <li><strong>Won:</strong><%= @match.player_win_id %></li>
-  <li><strong>Lost:</strong><%= @match.player_loss_id %></li>
-  <li><strong>Score:</strong><%= @match.player_a_points %>-<%= @match.player_b_points %></li>
-</ul>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <table class="table match-stats">
+      <tbody>
+        <tr>
+          <td>Match:</td>
+          <td>#<%= @match.id %></td>
+        </tr>
+        <tr>
+          <td>Won:</td>
+          <td><%= player_win_name(@match) %></td>
+        </tr>
+        <tr>
+          <td>Lost:</td>
+          <td><%= player_loss_name(@match) %></td>
+        </tr>
+        <tr>
+          <td>Score:</td>
+          <td><%= @match.player_a_points %>-<%= @match.player_b_points %></td>
+        </tr>
+      <tbody>
+    </table>
+  </div>
+</div>
 
-<ul>
-  <li><strong>All-time Record for <%= @match.player_a_id %> and <%= @match.player_b_id %>:</strong></li>
-  <li><strong>All-time Point Differential for <%= @match.player_a_id %> and <%= @match.player_b_id %>:</strong></li>
-</ul>
-
-<%= link "Back", to: match_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
-<%= link "Edit", to: match_path(@conn, :edit, @match), class: "btn btn-default btn-lg btn-block" %>
-<%= link "Delete", to: match_path(@conn, :delete, @match), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-lg btn-block" %>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <%= link "Back", to: match_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
+    <%= link "Edit", to: match_path(@conn, :edit, @match), class: "btn btn-default btn-lg btn-block" %>
+    <%= link "Delete", to: match_path(@conn, :delete, @match), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-lg btn-block" %>
+  </div>
+</div>

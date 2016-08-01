@@ -1,37 +1,60 @@
-<h2>Match History</h2>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <h2>Match History</h2>
 
-<h3>Stats</h3>
-<ul class="match-stats">
-  <li>All-time Games Played:</li>
-  <li>All-time Points Scored:</li>
-  <li>All-time Best Win Percentage:</li>
-  <li>All-time Most Wins:</li>
-  <li>All-time Most Points:</li>
-</ul>
+    <h3>Stats</h3>
+    <table class="table match-stats">
+      <tbody>
+        <tr><td>All-time Total Games Played:</td><td><%= total_matches %></td></tr>
+        <tr><td>All-time Total Points Scored:</td><td><%= total_points %></td></tr>
+      <tbody>
+    </table>
+  </div>
+</div>
 
-<h3>Match Log</h3>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Match #</th>
-      <th>Won</th>
-      <th>Lost</th>
-      <th>Score</th>
-      <th>Overtime?</th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for match <- @matches do %>
-    <tr class="match-list-item">
-      <td><%= link match.id, to: match_path(@conn, :show, match) %></td>
-      <td><%= match.player_win_id %></td>
-      <td><%= match.player_loss_id %></td>
-      <td><%= match.player_a_points %>-<%= match.player_b_points %></td>
-      <td><%= match.overtime %></td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <h3>Matches</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Match #</th>
+          <th>Won</th>
+          <th>Lost</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for match <- matches_sorted do %>
+          <tr class="match-list-item">
+            <td>
+              <%= link match.id, to: match_path(@conn, :show, match) %>
+            </td>
+            <td>
+              <%= link to: player_path(@conn, :show, player_win_id(match)) do %>
+                <%= player_win_name(match) %>
+              <% end %>
+            </td>
+            <td>
+              <%= link to: player_path(@conn, :show, player_loss_id(match)) do %>
+                <%= player_loss_name(match) %>
+              <% end %>
+            </td>
+            <td>
+              <%= link to: match_path(@conn, :show, match) do %>
+              <%= match.player_a_points %>-<%= match.player_b_points %><%= if overtime?(match) do %><sup class="overtime">OT</sup><% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<%= link "New Match", to: match_path(@conn, :new), class: "btn btn-success btn-lg btn-block" %>
-<%= link "Back", to: "/", class: "btn btn-default btn-lg btn-block" %>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <%= link "New Match", to: match_path(@conn, :new), class: "btn btn-success btn-lg btn-block" %>
+    <%= link "Back", to: "/", class: "btn btn-default btn-lg btn-block" %>
+  </div>
+</div>

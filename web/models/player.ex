@@ -4,12 +4,6 @@ defmodule Pong.Player do
   schema "players" do
     field :name, :string
     field :avatar_url, :string
-    field :wins, :integer
-    field :losses, :integer
-    field :total_matches, :integer
-    field :total_points, :integer
-    field :total_points_against, :integer
-    field :total_points_differential, :integer
 
     timestamps()
   end
@@ -19,7 +13,7 @@ defmodule Pong.Player do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :avatar_url, :wins, :losses, :total_matches, :total_points, :total_points_against, :total_points_differential])
+    |> cast(params, [:name, :avatar_url])
     |> validate_required([:name])
   end
 end
