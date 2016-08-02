@@ -61,6 +61,17 @@ defmodule Pong.PlayerView do
   end
 
   @doc """
+  Win-loss percentage as a float from 0.0 to 100.0.
+  """
+  @spec win_loss_percentage_number(Player) :: Float
+  def win_loss_percentage_number(%Player{id: id}) do
+    player = Repo.get(Player, id)
+    if total_matches(player) > 0 do
+      wins(player) / total_matches(player) * 100
+    end
+  end
+
+  @doc """
   All-time total number of points scored.
 
   The complexity of this makes me wonder if I made a grievous error somewhere in
@@ -129,9 +140,10 @@ defmodule Pong.PlayerView do
   @spec highest_win_percentage :: String
   def highest_win_percentage do
     players = Repo.all(Player)
-    if Enum.count(players) > 0 do
-      highest_winning_player = Enum.max_by(players, fn(p) -> win_loss_percentage(p) end)
-      win_loss_percentage(highest_winning_player)
+    players_with_results = Enum.filter(players, fn(p) -> total_matches(p) > 0 end)
+    if Enum.count(players_with_results) > 0 do
+      player_with_highest_percentage = Enum.max_by(players_with_results, fn(p) -> win_loss_percentage_number(p) end)
+      win_loss_percentage(player_with_highest_percentage)
     end
   end
 
@@ -141,9 +153,10 @@ defmodule Pong.PlayerView do
   @spec highest_win_percentage_name :: String
   def highest_win_percentage_name do
     players = Repo.all(Player)
-    if Enum.count(players) > 0 do
-      highest_winning_player = Enum.max_by(players, fn(p) -> win_loss_percentage(p) end)
-      highest_winning_player.name
+    players_with_results = Enum.filter(players, fn(p) -> total_matches(p) > 0 end)
+    if Enum.count(players_with_results) > 0 do
+      player_with_highest_percentage = Enum.max_by(players_with_results, fn(p) -> win_loss_percentage_number(p) end)
+      player_with_highest_percentage.name
     end
   end
 
