@@ -142,6 +142,16 @@ defmodule Pong.MatchView do
   end
 
   @doc """
+  List of all player names mapped to their ids for the match form.
+  """
+  @spec player_list :: List
+  def player_list do
+    players = Repo.all(Player)
+    player_list = []
+    Enum.map(players, fn(p) -> player_list ++ {p.name, p.id} end)
+  end
+
+  @doc """
   List of all player ids.
   """
   @spec player_ids :: List
