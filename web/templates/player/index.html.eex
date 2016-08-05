@@ -28,14 +28,17 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Player Name</th>
-          <th>Wins</th>
-          <th>Losses</th>
-          <th>All-time Point Differential</th>
+          <th></th>
+          <th>W</th>
+          <th>L</th>
+          <th>PCT</th>
+          <th>PF</th>
+          <th>PA</th>
+          <th>DIFF</th>
         </tr>
       </thead>
       <tbody>
-        <%= for player <- @players do %>
+        <%= for player <- players_by_percentage do %>
           <tr class="player-list-item">
             <td>
               <%= tag(:img, src: avatar(player), alt: player.name, class: "avatar-image-small") %>
@@ -43,6 +46,9 @@
             </td>
             <td><%= wins(player) %></td>
             <td><%= losses(player) %></td>
+            <td><%= win_loss_percentage(player) %></td>
+            <td><%= total_points_scored(player) %></td>
+            <td><%= total_points_against(player) %></td>
             <td><%= total_points_differential(player) %></td>
           </tr>
         <% end %>

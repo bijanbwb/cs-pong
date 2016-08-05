@@ -1,6 +1,8 @@
 defmodule Pong.PlayerView do
   use Pong.Web, :view
 
+  import Ecto.Query, only: [from: 2]
+
   alias Pong.Match
   alias Pong.MatchView
   alias Pong.Player
@@ -158,6 +160,21 @@ defmodule Pong.PlayerView do
       player_with_highest_percentage = Enum.max_by(players_with_results, fn(p) -> win_loss_percentage_number(p) end)
       player_with_highest_percentage.name
     end
+  end
+
+  @doc """
+  List of players sorted by their win percentage.
+
+  This function is impressively obfuscated even though it is meant to accomplish
+  something simple.
+  """
+  @spec players_by_percentage :: List
+  def players_by_percentage do
+    players = Repo.all(Player)
+    players_with_results = Enum.filter(players, fn(p) -> total_matches(p) > 0 end)
+    players_without_results = Enum.filter(players, fn(p) -> total_matches(p) == 0 end)
+    players_by_percentage = Enum.reverse(Enum.sort_by(players_with_results, fn(p) -> win_loss_percentage_number(p) end))
+    players_by_percentage ++ players_without_results
   end
 
   @doc """
