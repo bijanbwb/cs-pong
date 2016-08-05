@@ -48,8 +48,9 @@
       <thead>
         <tr>
           <th>Match #</th>
-          <th>Won</th>
-          <th>Lost</th>
+          <th>Player 1</th>
+          <th></th>
+          <th>Player 2</th>
           <th>Score</th>
         </tr>
       </thead>
@@ -60,14 +61,19 @@
               <%= link match.id, to: match_path(@conn, :show, match) %>
             </td>
             <td>
-              <%= link to: player_path(@conn, :show, MatchView.player_win_id(match)) do %>
-                <%= MatchView.player_win_name(match) %>
+              <%= link to: player_path(@conn, :show, match.player_a_id) do %>
+                <%= MatchView.player_a_name(match) %>
               <% end %>
+              <%= if match.player_a_id == MatchView.player_win_id(match) do %><i class="fa fa-trophy"></i><% end %>
             </td>
             <td>
-              <%= link to: player_path(@conn, :show, MatchView.player_loss_id(match)) do %>
-                <%= MatchView.player_loss_name(match) %>
+              vs.
+            </td>
+            <td>
+              <%= link to: player_path(@conn, :show, match.player_b_id) do %>
+                <%= MatchView.player_b_name(match) %>
               <% end %>
+              <%= if match.player_b_id == MatchView.player_win_id(match) do %><i class="fa fa-trophy"></i><% end %>
             </td>
             <td>
               <%= link to: match_path(@conn, :show, match) do %>

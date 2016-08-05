@@ -3,7 +3,11 @@
     <div class="match-card">
       <%= tag(:img, src: player_a_avatar(@match), alt: player_a_name(@match), class: "avatar-image") %>
       <%= tag(:img, src: player_b_avatar(@match), alt: player_b_name(@match), class: "avatar-image") %>
-      <span class="player-name"><%= player_a_name(@match) %> vs. <%= player_b_name(@match) %></span>
+      <span class="player-name">
+        <%= player_a_name(@match) %><%= if @match.player_a_id == player_win_id(@match) do %><i class="fa fa-trophy"></i><% end %>
+        vs.
+        <%= player_b_name(@match) %><%= if @match.player_b_id == player_win_id(@match) do %><i class="fa fa-trophy"></i><% end %>
+      </span>
     </div>
   </div>
 </div>
