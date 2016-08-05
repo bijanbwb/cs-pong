@@ -7,15 +7,15 @@
       <tbody>
         <tr>
           <td>All-time Best Win Percentage:</td>
-          <td><%= highest_win_percentage %> (<%= highest_win_percentage_name %>)</td>
+          <td><%= highest_win_percentage_name %> (<%= highest_win_percentage %>)</td>
         </tr>
         <tr>
           <td>All-time Most Wins:</td>
-          <td><%= most_wins %> (<%= most_wins_name %>)</td>
+          <td><%= most_wins_name %> (<%= most_wins %>)</td>
         </tr>
         <tr>
           <td>All-time Most Points:</td>
-          <td><%= most_points %> (<%= most_points_name %>)</td>
+          <td><%= most_points_name %> (<%= most_points %>)</td>
         </tr>
       <tbody>
     </table>
