@@ -236,7 +236,7 @@ defmodule Pong.PlayerView do
     |> Enum.reduce(nil, fn
       pair, nil ->
         pair
-      {k, v}, {hk, hv} when hv < v ->
+      {k, v}, {_, hv} when hv < v ->
         {k, v}
       _, high ->
         high
