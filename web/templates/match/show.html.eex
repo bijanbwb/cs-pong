@@ -1,9 +1,23 @@
 <div class="row">
   <div class="col-md-5 col-md-offset-3">
     <div class="match-card">
-      <%= tag(:img, src: player_a_avatar(@match), alt: player_a_name(@match), class: "avatar-image") %>
-      <%= tag(:img, src: player_b_avatar(@match), alt: player_b_name(@match), class: "avatar-image") %>
-      <span class="player-name"><%= player_a_name(@match) %> vs. <%= player_b_name(@match) %></span>
+      <%= link to: player_path(@conn, :show, @match.player_a_id) do %>
+        <%= tag(:img, src: player_a_avatar(@match), alt: player_a_name(@match), class: "avatar-image") %>
+      <% end %>
+      <%= link to: player_path(@conn, :show, @match.player_b_id) do %>
+        <%= tag(:img, src: player_b_avatar(@match), alt: player_b_name(@match), class: "avatar-image") %>
+      <% end %>
+      <span class="player-name">
+        <%= if player_a_win?(@match) do %><i class="fa fa-trophy"></i><% end %>
+        <%= link to: player_path(@conn, :show, @match.player_a_id), class: player_a_win_loss_class(@match) do %>
+          <%= player_a_name(@match) %>
+        <% end %>
+        vs.
+        <%= if player_b_win?(@match) do %><i class="fa fa-trophy"></i><% end %>
+        <%= link to: player_path(@conn, :show, @match.player_a_id), class: player_b_win_loss_class(@match) do %>
+          <%= player_b_name(@match) %>
+        <% end %>
+      </span>
     </div>
   </div>
 </div>
@@ -15,6 +29,10 @@
         <tr>
           <td>Match:</td>
           <td>#<%= @match.id %></td>
+        </tr>
+        <tr>
+          <td>Date:</td>
+          <td><%= Ecto.DateTime.to_date(@match.inserted_at) %></td>
         </tr>
         <tr>
           <td>Won:</td>
@@ -35,8 +53,73 @@
 
 <div class="row">
   <div class="col-md-5 col-md-offset-3">
+    <h3>All Matches Between Players</h3>
+    <table class="table match-stats">
+      <tbody>
+        <tr>
+          <td>Total Games Between:</td>
+          <td><%= Enum.count(matches_between_players(@match)) %></td>
+        </tr>
+        <tr>
+          <td>Won by <%= player_a_name(@match) %>:</td>
+          <td><%= matches_between_players_a_wins(@match) %></td>
+        </tr>
+        <tr>
+          <td>Won by <%= player_b_name(@match) %>:</td>
+          <td><%= matches_between_players_b_wins(@match) %></td>
+        </tr>
+        <tr>
+          <td>Overtime Games Played:</td>
+          <td><%= matches_between_players_ot_games(@match) %></td>
+        </tr>
+      <tbody>
+    </table>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Match #</th>
+          <th>Player 1</th>
+          <th></th>
+          <th>Player 2</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for match <- matches_between_players(@match) do %>
+          <tr class="match-list-item">
+            <td>
+              <%= link match.id, to: match_path(@conn, :show, match) %>
+            </td>
+            <td class="<%= player_a_win_loss_class(match) %>">
+              <%= link to: player_path(@conn, :show, match.player_a_id) do %>
+                <%= player_a_name(match) %>
+              <% end %>
+              <%= if player_a_win?(match) do %><i class="fa fa-trophy"></i><% end %>
+            </td>
+            <td>
+              vs.
+            </td>
+            <td class="<%= player_b_win_loss_class(match) %>">
+              <%= link to: player_path(@conn, :show, match.player_b_id) do %>
+                <%= player_b_name(match) %>
+              <% end %>
+              <%= if player_b_win?(match) do %><i class="fa fa-trophy"></i><% end %>
+            </td>
+            <td>
+              <%= link to: match_path(@conn, :show, match) do %>
+              <%= match.player_a_points %>-<%= match.player_b_points %><%= if overtime?(match) do %><sup class="overtime">OT</sup><% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
     <%= link "Back", to: match_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
     <%= link "Edit", to: match_path(@conn, :edit, @match), class: "btn btn-default btn-lg btn-block" %>
-    <%= link "Delete", to: match_path(@conn, :delete, @match), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-lg btn-block" %>
   </div>
 </div>

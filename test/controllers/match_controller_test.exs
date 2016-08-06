@@ -31,7 +31,7 @@ defmodule Pong.MatchControllerTest do
   test "shows chosen resource", %{conn: conn} do
     player_a = Repo.insert! %Player{}
     player_b = Repo.insert! %Player{}
-    match = Repo.insert! %Match{player_a_id: player_a.id, player_b_id: player_b.id}
+    match = Repo.insert! %Match{player_a_id: player_a.id, player_b_id: player_b.id, player_a_points: 21, player_b_points: 1}
     conn = get conn, match_path(conn, :show, match)
     assert html_response(conn, 200) =~ "Match"
   end

@@ -10,21 +10,21 @@
       <% end %>
 
       <div class="form-group">
-        <%= label f, :player_a_id, "Player 1 ID", class: "control-label" %>
-        <%= number_input f, :player_a_id, class: "form-control" %>
+        <%= label f, :player_a_id, "Player 1", class: "control-label" %>
+        <%= select f, :player_a_id, player_list, prompt: "Select Player 1:", class: "form-control" %>
         <%= error_tag f, :player_a_id %>
-      </div>
-
-      <div class="form-group">
-        <%= label f, :player_b_id, "Player 2 ID", class: "control-label" %>
-        <%= number_input f, :player_b_id, class: "form-control" %>
-        <%= error_tag f, :player_b_id %>
       </div>
 
       <div class="form-group">
         <%= label f, :player_a_points, "Player 1 Score",class: "control-label" %>
         <%= number_input f, :player_a_points, class: "form-control" %>
         <%= error_tag f, :player_a_points %>
+      </div>
+
+      <div class="form-group">
+        <%= label f, :player_b_id, "Player 2", class: "control-label" %>
+        <%= select f, :player_b_id, player_list, prompt: "Select Player 2:", class: "form-control" %>
+        <%= error_tag f, :player_b_id %>
       </div>
 
       <div class="form-group">

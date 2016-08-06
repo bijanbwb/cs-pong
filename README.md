@@ -29,8 +29,11 @@
 
 - `mix test`
 
+## Deployment
+
+This app is deployed to Heroku at https://codeschool-pong.herokuapp.com under the `vendor+heroku@codeschool.com` account. If you have Heroku Toolbelt installed you can log in and deploy with `git push heroku master`.
+
 ## Contributing
 
 Check out the [Inbox](https://github.com/codeschool/pong/issues/1) issue
 to see what is currently on deck.
-

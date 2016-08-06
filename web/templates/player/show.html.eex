@@ -25,6 +25,10 @@
           <td><%= total_matches(@player) %></td>
         </tr>
         <tr>
+          <td>Date of Most Recent Game:</td>
+          <td><%= most_recent_match_date(@player) %></td>
+        </tr>
+        <tr>
           <td>All-time Points Scored:</td>
           <td><%= total_points_scored(@player) %></td>
         </tr>
@@ -35,6 +39,14 @@
         <tr>
           <td>All-time Points Differential:</td>
           <td><%= total_points_differential(@player) %></td>
+        </tr>
+        <tr>
+          <td class="rival">Rival:</td>
+          <td><%= rival_name(@player) %></td>
+        </tr>
+        <tr>
+          <td class="rival">Record Against Rival:</td>
+          <td><%= record_against_rival(@player) %></td>
         </tr>
       <tbody>
     </table>
@@ -48,8 +60,9 @@
       <thead>
         <tr>
           <th>Match #</th>
-          <th>Won</th>
-          <th>Lost</th>
+          <th>Player 1</th>
+          <th></th>
+          <th>Player 2</th>
           <th>Score</th>
         </tr>
       </thead>
@@ -59,15 +72,20 @@
             <td>
               <%= link match.id, to: match_path(@conn, :show, match) %>
             </td>
-            <td>
-              <%= link to: player_path(@conn, :show, MatchView.player_win_id(match)) do %>
-                <%= MatchView.player_win_name(match) %>
+            <td class="<%= MatchView.player_a_win_loss_class(match) %>">
+              <%= link to: player_path(@conn, :show, match.player_a_id) do %>
+                <%= MatchView.player_a_name(match) %>
               <% end %>
+              <%= if MatchView.player_a_win?(match) do %><i class="fa fa-trophy"></i><% end %>
             </td>
             <td>
-              <%= link to: player_path(@conn, :show, MatchView.player_loss_id(match)) do %>
-                <%= MatchView.player_loss_name(match) %>
+              vs.
+            </td>
+            <td class="<%= MatchView.player_b_win_loss_class(match) %>">
+              <%= link to: player_path(@conn, :show, match.player_b_id) do %>
+                <%= MatchView.player_b_name(match) %>
               <% end %>
+              <%= if MatchView.player_b_win?(match) do %><i class="fa fa-trophy"></i><% end %>
             </td>
             <td>
               <%= link to: match_path(@conn, :show, match) do %>
@@ -85,6 +103,5 @@
   <div class="col-md-5 col-md-offset-3">
     <%= link "Back", to: player_path(@conn, :index), class: "btn btn-default btn-lg btn-block" %>
     <%= link "Edit", to: player_path(@conn, :edit, @player), class: "btn btn-default btn-lg btn-block" %>
-    <%= link "Delete", to: player_path(@conn, :delete, @player), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-lg btn-block" %>
   </div>
 </div>
