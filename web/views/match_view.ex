@@ -216,7 +216,7 @@ defmodule Pong.MatchView do
   def matches_between_players_a_wins(%Match{id: id}) do
     match = Repo.get(Match, id)
     matches_between_players(match)
-    |> Enum.filter(fn(m) -> player_win_id(match) == match.player_a_id end)
+    |> Enum.filter(fn(m) -> player_win_id(m) == match.player_a_id end)
     |> Enum.count
   end
 
@@ -227,7 +227,7 @@ defmodule Pong.MatchView do
   def matches_between_players_b_wins(%Match{id: id}) do
     match = Repo.get(Match, id)
     matches_between_players(match)
-    |> Enum.filter(fn(m) -> player_win_id(match) == match.player_b_id end)
+    |> Enum.filter(fn(m) -> player_win_id(m) == match.player_b_id end)
     |> Enum.count
   end
 
