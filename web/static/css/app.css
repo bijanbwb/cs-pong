@@ -64,6 +64,10 @@ h2 {
   text-align: center;
 }
 
+.player-card .avatar-image {
+  margin: 15px;
+}
+
 .player-name {
   font-size: 2em;
   display: block;
@@ -116,17 +120,29 @@ h2 {
 }
 
 .match-card .avatar-image {
-  margin-right: 10px;
+  margin: 15px;
 }
 
 .match-list-item {
-  font-size: 1.5em;
+  font-size: 1.4em;
+}
+
+.match-win {
+  font-weight: 600;
+}
+
+.match-loss {
+  font-weight: 100;
 }
 
 .overtime {
   font-size: .4em;
   color: firebrick;
   vertical-align: super;
+}
+
+.fa-trophy {
+  color: gold;
 }
 
 /* Phoenix styles */

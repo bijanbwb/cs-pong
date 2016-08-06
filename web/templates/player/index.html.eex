@@ -43,6 +43,7 @@
             <td>
               <%= tag(:img, src: avatar(player), alt: player.name, class: "avatar-image-small") %>
               <%= link player.name, to: player_path(@conn, :show, player) %>
+              <%= if player.id == current_champion.id do %><i class="fa fa-trophy"></i><% end %>
             </td>
             <td><%= wins(player) %></td>
             <td><%= losses(player) %></td>

@@ -7,6 +7,7 @@
       <tbody>
         <tr><td>All-time Total Games Played:</td><td><%= total_matches %></td></tr>
         <tr><td>All-time Total Points Scored:</td><td><%= total_points %></td></tr>
+        <tr><td>All-time Overtime Games Played:</td><td><%= overtime_matches %></td></tr>
       <tbody>
     </table>
   </div>
@@ -31,20 +32,20 @@
             <td>
               <%= link match.id, to: match_path(@conn, :show, match) %>
             </td>
-            <td>
+            <td class="<%= player_a_win_loss_class(match) %>">
               <%= link to: player_path(@conn, :show, match.player_a_id) do %>
                 <%= player_a_name(match) %>
               <% end %>
-              <%= if match.player_a_id == player_win_id(match) do %><i class="fa fa-trophy"></i><% end %>
+              <%= if player_a_win?(match) do %><i class="fa fa-trophy"></i><% end %>
             </td>
             <td>
               vs.
             </td>
-            <td>
+            <td class="<%= player_b_win_loss_class(match) %>">
               <%= link to: player_path(@conn, :show, match.player_b_id) do %>
                 <%= player_b_name(match) %>
               <% end %>
-              <%= if match.player_b_id == player_win_id(match) do %><i class="fa fa-trophy"></i><% end %>
+              <%= if player_b_win?(match) do %><i class="fa fa-trophy"></i><% end %>
             </td>
             <td>
               <%= link to: match_path(@conn, :show, match) do %>

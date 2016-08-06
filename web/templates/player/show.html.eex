@@ -25,6 +25,10 @@
           <td><%= total_matches(@player) %></td>
         </tr>
         <tr>
+          <td>Date of Most Recent Game:</td>
+          <td><%= most_recent_match_date(@player) %></td>
+        </tr>
+        <tr>
           <td>All-time Points Scored:</td>
           <td><%= total_points_scored(@player) %></td>
         </tr>
@@ -35,6 +39,10 @@
         <tr>
           <td>All-time Points Differential:</td>
           <td><%= total_points_differential(@player) %></td>
+        </tr>
+        <tr>
+          <td class="rival">Rival:</td>
+          <td><%= Enum.count(players_lost_to(@player)) %></td>
         </tr>
       <tbody>
     </table>
@@ -60,20 +68,20 @@
             <td>
               <%= link match.id, to: match_path(@conn, :show, match) %>
             </td>
-            <td>
+            <td class="<%= MatchView.player_a_win_loss_class(match) %>">
               <%= link to: player_path(@conn, :show, match.player_a_id) do %>
                 <%= MatchView.player_a_name(match) %>
               <% end %>
-              <%= if match.player_a_id == MatchView.player_win_id(match) do %><i class="fa fa-trophy"></i><% end %>
+              <%= if MatchView.player_a_win?(match) do %><i class="fa fa-trophy"></i><% end %>
             </td>
             <td>
               vs.
             </td>
-            <td>
+            <td class="<%= MatchView.player_b_win_loss_class(match) %>">
               <%= link to: player_path(@conn, :show, match.player_b_id) do %>
                 <%= MatchView.player_b_name(match) %>
               <% end %>
-              <%= if match.player_b_id == MatchView.player_win_id(match) do %><i class="fa fa-trophy"></i><% end %>
+              <%= if MatchView.player_b_win?(match) do %><i class="fa fa-trophy"></i><% end %>
             </td>
             <td>
               <%= link to: match_path(@conn, :show, match) do %>
