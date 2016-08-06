@@ -1,8 +1,6 @@
 defmodule Pong.PlayerView do
   use Pong.Web, :view
 
-  import Ecto.Query, only: [from: 2]
-
   alias Pong.Match
   alias Pong.MatchView
   alias Pong.Player
@@ -42,7 +40,7 @@ defmodule Pong.PlayerView do
   def most_recent_match_date(%Player{id: id}) do
     player = Repo.get(Player, id)
     recent_matches = recent_matches(player)
-    if Enum.count(recent_matches) > 0, do: Ecto.DateTime.to_date(List.last(recent_matches).inserted_at)
+    if Enum.count(recent_matches) > 0, do: Ecto.DateTime.to_date(List.last(recent_matches).inserted_at), else: "No Games"
   end
 
   ## -------------------------------------
@@ -139,7 +137,7 @@ defmodule Pong.PlayerView do
   end
 
   ## -------------------------------------
-  ##   Player Stats
+  ##   Global Player Stats
   ## -------------------------------------
 
   @doc """
@@ -225,6 +223,88 @@ defmodule Pong.PlayerView do
   end
 
   ## -------------------------------------
+  ##   Player Rival Data
+  ## -------------------------------------
+
+  @doc """
+  A rival is the player that another player has lost to the most times.
+  """
+  @spec rival_id(Player) :: Player
+  def rival_id(%Player{id: id}) do
+    Repo.get(Player, id)
+    |> players_lost_to
+    |> Enum.reduce(nil, fn
+      pair, nil ->
+        pair
+      {k, v}, {hk, hv} when hv < v ->
+        {k, v}
+      _, high ->
+        high
+    end)
+  end
+
+  @doc """
+  The name of the player that another player has lost to the most times.
+  """
+  @spec rival_name(Player) :: Player
+  def rival_name(%Player{id: id}) do
+    player = Repo.get(Player, id)
+    if rival_id(player) do
+      rival = Repo.get(Player, rival_id(player))
+      rival.name
+    else
+      "No Rival"
+    end
+  end
+
+  @doc """
+  Matches against rival.
+  """
+  @spec matches_against_rival(Player) :: List
+  def matches_against_rival(%Player{id: id}) do
+    player = Repo.get(Player, id)
+    all_matches = Repo.all(Match)
+    matches_between_a = Enum.filter(all_matches, fn(m) -> m.player_a_id == player.id && m.player_b_id == rival_id(player) end)
+    matches_between_b = Enum.filter(all_matches, fn(m) -> m.player_b_id == player.id && m.player_a_id == rival_id(player) end)
+    matches_between_a ++ matches_between_b
+  end
+
+  @doc """
+  Wins against rival.
+  """
+  @spec wins_against_rival(Player) :: integer
+  def wins_against_rival(%Player{id: id}) do
+    player = Repo.get(Player, id)
+    matches_against_rival(player)
+    |> Enum.filter(fn(m) -> player.id == MatchView.player_win_id(m) end)
+    |> Enum.count
+  end
+
+  @doc """
+  Losses against rival.
+  """
+  @spec losses_against_rival(Player) :: integer
+  def losses_against_rival(%Player{id: id}) do
+    player = Repo.get(Player, id)
+    matches_against_rival(player)
+    |> Enum.filter(fn(m) -> player.id == MatchView.player_loss_id(m) end)
+    |> Enum.count
+  end
+
+  @doc """
+  Record against rival.
+  """
+  @spec record_against_rival(Player) :: String
+  def record_against_rival(%Player{id: id}) do
+    player = Repo.get(Player, id)
+    if wins_against_rival(player) > 0 || losses_against_rival(player) > 0 do
+      Integer.to_string(wins_against_rival(player)) <> "-" <> Integer.to_string(losses_against_rival(player))
+    else
+      "No Rival"
+    end
+  end
+
+  ## -------------------------------------
   ##   Player Lists
   ## -------------------------------------
 
@@ -255,8 +335,8 @@ defmodule Pong.PlayerView do
   def players_lost_to(%Player{id: id}) do
     players_lost_to = []
     player = Repo.get(Player, id)
-    |> matches_lost
-    |> Enum.map(fn(m) -> players_lost_to ++ MatchView.player_win_id(m) end)
+    losses = matches_lost(player)
+    Enum.map(losses, fn(m) -> players_lost_to ++ MatchView.player_win_id(m) end)
   end
 
   @doc """

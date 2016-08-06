@@ -42,7 +42,11 @@
         </tr>
         <tr>
           <td class="rival">Rival:</td>
-          <td><%= Enum.count(players_lost_to(@player)) %></td>
+          <td><%= rival_name(@player) %></td>
+        </tr>
+        <tr>
+          <td class="rival">Record Against Rival:</td>
+          <td><%= record_against_rival(@player) %></td>
         </tr>
       <tbody>
     </table>
