@@ -14,8 +14,7 @@ defmodule Pong.MatchView do
   The name of Player A in a match.
   """
   @spec player_a_name(Match) :: String
-  def player_a_name(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def player_a_name(match) do
     players = Repo.all(Player)
     player = Enum.find(players, fn(p) -> p.id == match.player_a_id end)
     if player, do: player.name
@@ -25,8 +24,7 @@ defmodule Pong.MatchView do
   The name of Player B in a match.
   """
   @spec player_b_name(Match) :: String
-  def player_b_name(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def player_b_name(match) do
     players = Repo.all(Player)
     player = Enum.find(players, fn(p) -> p.id == match.player_b_id end)
     if player, do: player.name
@@ -36,28 +34,18 @@ defmodule Pong.MatchView do
   The avatar for Player A in a match.
   """
   @spec player_a_avatar(Match) :: String
-  def player_a_avatar(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def player_a_avatar(match) do
     player_a = Repo.get(Player, match.player_a_id)
-    if player_a do
-      PlayerView.avatar(player_a)
-    else
-      "/images/default_avatar.png"
-    end
+    if player_a, do: PlayerView.avatar(player_a), else: "/images/default_avatar.png"
   end
 
   @doc """
   The avatar for Player B in a match.
   """
   @spec player_b_avatar(Match) :: String
-  def player_b_avatar(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def player_b_avatar(match) do
     player_b = Repo.get(Player, match.player_b_id)
-    if player_b do
-      PlayerView.avatar(player_b)
-    else
-      "/images/default_avatar.png"
-    end
+    if player_b, do: PlayerView.avatar(player_b), else: "/images/default_avatar.png"
   end
 
   ## -------------------------------------
@@ -69,45 +57,30 @@ defmodule Pong.MatchView do
   """
   @spec player_winner(Match) :: Player
   def player_winner(match) do
-    if match.player_a_points > match.player_b_points do
-      Repo.get(Player, match.player_a_id)
-    else
-      Repo.get(Player, match.player_b_id)
-    end
+    if match.player_a_points > match.player_b_points, do: Repo.get(Player, match.player_a_id), else: Repo.get(Player, match.player_b_id)
   end
 
   @doc """
   The id of the player who won the match.
   """
   @spec player_win_id(Match) :: integer
-  def player_win_id(%Match{id: id}) do
-    match = Repo.get(Match, id)
-    if match.player_a_points > match.player_b_points do
-      match.player_a_id
-    else
-      match.player_b_id
-    end
+  def player_win_id(match) do
+    if match.player_a_points > match.player_b_points, do: match.player_a_id, else: match.player_b_id
   end
 
   @doc """
   The id of the player who lost the match.
   """
   @spec player_loss_id(Match) :: integer
-  def player_loss_id(%Match{id: id}) do
-    match = Repo.get(Match, id)
-    if match.player_a_points > match.player_b_points do
-      match.player_b_id
-    else
-      match.player_a_id
-    end
+  def player_loss_id(match) do
+    if match.player_a_points > match.player_b_points, do: match.player_b_id, else: match.player_a_id
   end
 
   @doc """
   The name of the player who won the match.
   """
   @spec player_win_name(Match) :: String
-  def player_win_name(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def player_win_name(match) do
     players = Repo.all(Player)
     player = Enum.find(players, fn(p) -> p.id == player_win_id(match) end)
     if player, do: player.name
@@ -117,8 +90,7 @@ defmodule Pong.MatchView do
   The name of the player who lost the match.
   """
   @spec player_loss_name(Match) :: String
-  def player_loss_name(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def player_loss_name(match) do
     players = Repo.all(Player)
     player = Enum.find(players, fn(p) -> p.id == player_loss_id(match) end)
     if player, do: player.name
@@ -129,8 +101,7 @@ defmodule Pong.MatchView do
   match so that it can be styled in the template.
   """
   @spec player_a_win_loss_class(Match) :: String
-  def player_a_win_loss_class(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def player_a_win_loss_class(match) do
     if player_a_win?(match), do: "match-win" , else: "match-loss"
   end
 
@@ -139,8 +110,7 @@ defmodule Pong.MatchView do
   match so that it can be styled in the template.
   """
   @spec player_b_win_loss_class(Match) :: String
-  def player_b_win_loss_class(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def player_b_win_loss_class(match) do
     if player_b_win?(match), do: "match-win" , else: "match-loss"
   end
 
@@ -152,8 +122,7 @@ defmodule Pong.MatchView do
   The sum of all points scored by two players in a match.
   """
   @spec match_points(Match) :: integer
-  def match_points(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def match_points(match) do
     match.player_a_points + match.player_b_points
   end
 
@@ -165,8 +134,7 @@ defmodule Pong.MatchView do
   Determines whether or not Player A was the winner of the match.
   """
   @spec player_a_win?(Match) :: boolean
-  def player_a_win?(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def player_a_win?(match) do
     if match.player_a_id == player_win_id(match), do: True
   end
 
@@ -174,8 +142,7 @@ defmodule Pong.MatchView do
   Determines whether or not Player B was the winner of the match.
   """
   @spec player_b_win?(Match) :: boolean
-  def player_b_win?(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def player_b_win?(match) do
     if match.player_b_id == player_win_id(match), do: True
   end
 
@@ -184,8 +151,7 @@ defmodule Pong.MatchView do
   number of points scored by both players.
   """
   @spec overtime?(Match) :: boolean
-  def overtime?(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def overtime?(match) do
     if match_points(match) > 40, do: True
   end
 
@@ -225,8 +191,7 @@ defmodule Pong.MatchView do
   Number of wins for Player A in matches between two specific players.
   """
   @spec matches_between_players_a_wins(Match) :: List
-  def matches_between_players_a_wins(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def matches_between_players_a_wins(match) do
     matches_between_players(match)
     |> Enum.filter(fn(m) -> player_win_id(m) == match.player_a_id end)
     |> Enum.count
@@ -236,8 +201,7 @@ defmodule Pong.MatchView do
   Number of wins for Player B in matches between two specific players.
   """
   @spec matches_between_players_b_wins(Match) :: List
-  def matches_between_players_b_wins(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def matches_between_players_b_wins(match) do
     matches_between_players(match)
     |> Enum.filter(fn(m) -> player_win_id(m) == match.player_b_id end)
     |> Enum.count
@@ -247,8 +211,8 @@ defmodule Pong.MatchView do
   Number of overtime games for matches between two specific players.
   """
   @spec matches_between_players_ot_games(Match) :: List
-  def matches_between_players_ot_games(%Match{id: id}) do
-    Repo.get(Match, id)
+  def matches_between_players_ot_games(match) do
+    match
     |> matches_between_players
     |> Enum.filter(fn(m) -> overtime?(m) end)
     |> Enum.count
@@ -292,8 +256,7 @@ defmodule Pong.MatchView do
   List of all previous matches between both participating players in a match.
   """
   @spec matches_between_players(Match) :: List
-  def matches_between_players(%Match{id: id}) do
-    match = Repo.get(Match, id)
+  def matches_between_players(match) do
     all_matches = Repo.all(Match)
     matches_between_a = Enum.filter(all_matches, fn(m) -> m.player_a_id == match.player_a_id && m.player_b_id == match.player_b_id end)
     matches_between_b = Enum.filter(all_matches, fn(m) -> m.player_b_id == match.player_a_id && m.player_a_id == match.player_b_id end)
