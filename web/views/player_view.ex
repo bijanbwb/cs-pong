@@ -135,7 +135,7 @@ defmodule Pong.PlayerView do
   """
   @spec current_champion(List) :: Player
   def current_champion(players) do
-    List.first(players_by_percentage(players))
+    if Enum.count(players_by_percentage(players)) > 0, do: List.first(players_by_percentage(players))
   end
 
   @doc """
@@ -309,8 +309,8 @@ defmodule Pong.PlayerView do
   @spec players_lost_to(Player) :: List
   def players_lost_to(player) do
     players_lost_to = []
-    losses = matches_lost(player)
-    Enum.map(losses, fn(m) -> players_lost_to ++ MatchView.player_win_id(m) end)
+    matches_lost(player)
+    |> Enum.map(fn(m) -> players_lost_to ++ MatchView.player_win_id(m) end)
   end
 
   @doc """
