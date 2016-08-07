@@ -27,8 +27,7 @@ defmodule Pong.PlayerView do
   Total number of games played for the player.
   """
   @spec total_matches(Player) :: integer
-  def total_matches(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def total_matches(player) do
     wins(player) + losses(player)
   end
 
