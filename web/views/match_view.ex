@@ -162,27 +162,27 @@ defmodule Pong.MatchView do
   @doc """
   All-time total number of matches played for all players.
   """
-  @spec total_matches :: integer
-  def total_matches do
-    Repo.all(Match)
+  @spec total_matches(List) :: integer
+  def total_matches(matches) do
+    matches
     |> Enum.count
   end
 
   @doc """
   All-time total number of points scored in all matches.
   """
-  @spec total_points :: integer
-  def total_points do
-    Repo.all(Match)
+  @spec total_points(List) :: integer
+  def total_points(matches) do
+    matches
     |> Enum.reduce(0, fn(m, acc) -> m.player_a_points + m.player_b_points + acc end)
   end
 
   @doc """
   All-time total number of overtime matches.
   """
-  @spec overtime_matches :: integer
-  def overtime_matches do
-    Repo.all(Match)
+  @spec overtime_matches(List) :: integer
+  def overtime_matches(matches) do
+    matches
     |> Enum.filter(fn (m) -> overtime?(m) end)
     |> Enum.count
   end
@@ -190,9 +190,9 @@ defmodule Pong.MatchView do
   @doc """
   Number of wins for Player A in matches between two specific players.
   """
-  @spec matches_between_players_a_wins(Match) :: List
-  def matches_between_players_a_wins(match) do
-    matches_between_players(match)
+  @spec matches_between_players_a_wins(List, Match) :: List
+  def matches_between_players_a_wins(matches, match) do
+    matches_between_players(matches, match)
     |> Enum.filter(fn(m) -> player_win_id(m) == match.player_a_id end)
     |> Enum.count
   end
@@ -200,9 +200,9 @@ defmodule Pong.MatchView do
   @doc """
   Number of wins for Player B in matches between two specific players.
   """
-  @spec matches_between_players_b_wins(Match) :: List
-  def matches_between_players_b_wins(match) do
-    matches_between_players(match)
+  @spec matches_between_players_b_wins(List, Match) :: List
+  def matches_between_players_b_wins(matches, match) do
+    matches_between_players(matches, match)
     |> Enum.filter(fn(m) -> player_win_id(m) == match.player_b_id end)
     |> Enum.count
   end
@@ -210,10 +210,9 @@ defmodule Pong.MatchView do
   @doc """
   Number of overtime games for matches between two specific players.
   """
-  @spec matches_between_players_ot_games(Match) :: List
-  def matches_between_players_ot_games(match) do
-    match
-    |> matches_between_players
+  @spec matches_between_players_ot_games(List, Match) :: List
+  def matches_between_players_ot_games(matches, match) do
+    matches_between_players(matches, match)
     |> Enum.filter(fn(m) -> overtime?(m) end)
     |> Enum.count
   end
@@ -227,9 +226,9 @@ defmodule Pong.MatchView do
   """
   @spec player_list :: List
   def player_list do
-    players = Repo.all(Player)
     player_list = []
-    Enum.map(players, fn(p) -> player_list ++ {p.name, p.id} end)
+    Repo.all(Player)
+    |> Enum.map(fn(p) -> player_list ++ {p.name, p.id} end)
   end
 
   @doc """
@@ -237,17 +236,17 @@ defmodule Pong.MatchView do
   """
   @spec player_ids :: List
   def player_ids do
-    players = Repo.all(Player)
     player_ids = []
-    Enum.map(players, fn(p) -> player_ids ++ p.id end)
+    Repo.all(Player)
+    |> Enum.map(fn(p) -> player_ids ++ p.id end)
   end
 
   @doc """
   List of all matches sorted in reverse by `inserted_at` date.
   """
-  @spec matches_sorted :: List
-  def matches_sorted do
-    Repo.all(Match)
+  @spec matches_sorted(List) :: List
+  def matches_sorted(matches) do
+    matches
     |> Enum.sort
     |> Enum.reverse
   end
@@ -255,11 +254,8 @@ defmodule Pong.MatchView do
   @doc """
   List of all previous matches between both participating players in a match.
   """
-  @spec matches_between_players(Match) :: List
-  def matches_between_players(match) do
-    all_matches = Repo.all(Match)
-    matches_between_a = Enum.filter(all_matches, fn(m) -> m.player_a_id == match.player_a_id && m.player_b_id == match.player_b_id end)
-    matches_between_b = Enum.filter(all_matches, fn(m) -> m.player_b_id == match.player_a_id && m.player_a_id == match.player_b_id end)
-    matches_between_a ++ matches_between_b
+  @spec matches_between_players(List, Match) :: List
+  def matches_between_players(matches, match) do
+    Enum.filter(matches, fn(m) -> m.player_a_id == match.player_a_id && m.player_b_id == match.player_b_id || m.player_b_id == match.player_a_id && m.player_a_id == match.player_b_id end)
   end
 end

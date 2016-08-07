@@ -32,9 +32,7 @@
           <th>W</th>
           <th>L</th>
           <th>PCT</th>
-          <th>PF</th>
-          <th>PA</th>
-          <th>DIFF</th>
+          <th>PT DIFF</th>
         </tr>
       </thead>
       <tbody>
@@ -48,8 +46,6 @@
             <td><%= wins(@matches, player) %></td>
             <td><%= losses(@matches, player) %></td>
             <td><%= win_loss_percentage(@matches, player) %></td>
-            <td><%= total_points_scored(@matches, player) %></td>
-            <td><%= total_points_against(@matches, player) %></td>
             <td><%= total_points_differential(@matches, player) %></td>
           </tr>
         <% end %>

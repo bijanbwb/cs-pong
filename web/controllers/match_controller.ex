@@ -30,7 +30,8 @@ defmodule Pong.MatchController do
 
   def show(conn, %{"id" => id}) do
     match = Repo.get!(Match, id)
-    render(conn, "show.html", match: match)
+    matches = Repo.all(Match)
+    render(conn, "show.html", match: match, matches: matches)
   end
 
   def edit(conn, %{"id" => id}) do

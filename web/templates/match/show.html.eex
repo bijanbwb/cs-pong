@@ -58,19 +58,19 @@
       <tbody>
         <tr>
           <td>Total Games Between:</td>
-          <td><%= Enum.count(matches_between_players(@match)) %></td>
+          <td><%= Enum.count(matches_between_players(@matches, @match)) %></td>
         </tr>
         <tr>
           <td>Won by <%= player_a_name(@match) %>:</td>
-          <td><%= matches_between_players_a_wins(@match) %></td>
+          <td><%= matches_between_players_a_wins(@matches, @match) %></td>
         </tr>
         <tr>
           <td>Won by <%= player_b_name(@match) %>:</td>
-          <td><%= matches_between_players_b_wins(@match) %></td>
+          <td><%= matches_between_players_b_wins(@matches, @match) %></td>
         </tr>
         <tr>
           <td>Overtime Games Played:</td>
-          <td><%= matches_between_players_ot_games(@match) %></td>
+          <td><%= matches_between_players_ot_games(@matches, @match) %></td>
         </tr>
       <tbody>
     </table>
@@ -85,7 +85,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= for match <- matches_between_players(@match) do %>
+        <%= for match <- matches_between_players(@matches, @match) do %>
           <tr class="match-list-item">
             <td>
               <%= link match.id, to: match_path(@conn, :show, match) %>
