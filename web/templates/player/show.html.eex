@@ -14,39 +14,39 @@
       <tbody>
         <tr>
           <td>Record:</td>
-          <td><%= wins(@player) %>-<%= losses(@player) %></td>
+          <td><%= wins(@matches, @player) %>-<%= losses(@matches, @player) %></td>
         </tr>
         <tr>
           <td>Win-loss Percentage:</td>
-          <td><%= win_loss_percentage(@player) %></td>
+          <td><%= win_loss_percentage(@matches, @player) %></td>
         </tr>
         <tr>
           <td>Games Played:</td>
-          <td><%= total_matches(@player) %></td>
+          <td><%= total_matches(@matches, @player) %></td>
         </tr>
         <tr>
           <td>Date of Most Recent Game:</td>
-          <td><%= most_recent_match_date(@player) %></td>
+          <td><%= most_recent_match_date(@matches, @player) %></td>
         </tr>
         <tr>
           <td>All-time Points Scored:</td>
-          <td><%= total_points_scored(@player) %></td>
+          <td><%= total_points_scored(@matches, @player) %></td>
         </tr>
         <tr>
           <td>All-time Points Against:</td>
-          <td><%= total_points_against(@player) %></td>
+          <td><%= total_points_against(@matches, @player) %></td>
         </tr>
         <tr>
           <td>All-time Points Differential:</td>
-          <td><%= total_points_differential(@player) %></td>
+          <td><%= total_points_differential(@matches, @player) %></td>
         </tr>
         <tr>
           <td class="rival">Rival:</td>
-          <td><%= rival_name(@player) %></td>
+          <td><%= rival_name(@matches, @player) %></td>
         </tr>
         <tr>
           <td class="rival">Record Against Rival:</td>
-          <td><%= record_against_rival(@player) %></td>
+          <td><%= record_against_rival(@matches, @player) %></td>
         </tr>
       <tbody>
     </table>
@@ -67,7 +67,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= for match <- recent_matches(@player) do %>
+        <%= for match <- recent_matches(@matches, @player) do %>
           <tr class="match-list-item">
             <td>
               <%= link match.id, to: match_path(@conn, :show, match) %>

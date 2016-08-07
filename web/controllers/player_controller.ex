@@ -2,12 +2,14 @@ defmodule Pong.PlayerController do
   use Pong.Web, :controller
 
   alias Pong.Player
+  alias Pong.Match
 
   plug :scrub_params, "player" when action in [:create, :update]
 
   def index(conn, _params) do
     players = Repo.all(Player)
-    render(conn, "index.html", players: players)
+    matches = Repo.all(Match)
+    render(conn, "index.html", players: players, matches: matches)
   end
 
   def new(conn, _params) do
@@ -30,7 +32,8 @@ defmodule Pong.PlayerController do
 
   def show(conn, %{"id" => id}) do
     player = Repo.get!(Player, id)
-    render(conn, "show.html", player: player)
+    matches = Repo.all(Match)
+    render(conn, "show.html", player: player, matches: matches)
   end
 
   def edit(conn, %{"id" => id}) do

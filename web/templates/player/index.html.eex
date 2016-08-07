@@ -7,15 +7,15 @@
       <tbody>
         <tr>
           <td>All-time Best Win Percentage:</td>
-          <td><%= highest_win_percentage_name %> (<%= highest_win_percentage %>)</td>
+          <td><%= highest_win_percentage_name(@matches, @players) %> (<%= highest_win_percentage_value(@matches, @players) %>)</td>
         </tr>
         <tr>
           <td>All-time Most Wins:</td>
-          <td><%= most_wins_name %> (<%= most_wins %>)</td>
+          <td><%= most_wins_name(@matches, @players) %> (<%= most_wins(@matches, @players) %>)</td>
         </tr>
         <tr>
           <td>All-time Most Points:</td>
-          <td><%= most_points_name %> (<%= most_points %>)</td>
+          <td><%= most_points_name(@matches, @players) %> (<%= most_points(@matches, @players) %>)</td>
         </tr>
       <tbody>
     </table>
@@ -38,19 +38,19 @@
         </tr>
       </thead>
       <tbody>
-        <%= for player <- players_by_percentage do %>
+        <%= for player <- players_by_percentage(@matches, @players) do %>
           <tr class="player-list-item">
             <td>
               <%= tag(:img, src: avatar(player), alt: player.name, class: "avatar-image-small") %>
               <%= link player.name, to: player_path(@conn, :show, player) %>
-              <%= if player.id == current_champion.id do %><i class="fa fa-trophy"></i><% end %>
+              <%= if player == current_champion(@matches, @players) do %><i class="fa fa-trophy"></i><% end %>
             </td>
-            <td><%= wins(player) %></td>
-            <td><%= losses(player) %></td>
-            <td><%= win_loss_percentage(player) %></td>
-            <td><%= total_points_scored(player) %></td>
-            <td><%= total_points_against(player) %></td>
-            <td><%= total_points_differential(player) %></td>
+            <td><%= wins(@matches, player) %></td>
+            <td><%= losses(@matches, player) %></td>
+            <td><%= win_loss_percentage(@matches, player) %></td>
+            <td><%= total_points_scored(@matches, player) %></td>
+            <td><%= total_points_against(@matches, player) %></td>
+            <td><%= total_points_differential(@matches, player) %></td>
           </tr>
         <% end %>
       </tbody>
