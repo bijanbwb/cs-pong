@@ -15,8 +15,7 @@ defmodule Pong.PlayerView do
   entered yet.
   """
   @spec avatar(Player) :: String
-  def avatar(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def avatar(player) do
     if player.avatar_url, do: player.avatar_url, else: "/images/default_avatar.png"
   end
 
