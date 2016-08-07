@@ -35,8 +35,7 @@ defmodule Pong.PlayerView do
   Date of the most recent match played.
   """
   @spec most_recent_match_date(Player) :: String
-  def most_recent_match_date(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def most_recent_match_date(player) do
     recent_matches = recent_matches(player)
     if Enum.count(recent_matches) > 0, do: Ecto.DateTime.to_date(List.last(recent_matches).inserted_at), else: "No Games"
   end
