@@ -48,8 +48,7 @@ defmodule Pong.PlayerView do
   Total number of wins for the player.
   """
   @spec wins(Player) :: integer
-  def wins(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def wins(player) do
     Repo.all(Match)
     |> Enum.filter(fn(m) -> player.id == MatchView.player_win_id(m) end)
     |> Enum.count
@@ -59,8 +58,7 @@ defmodule Pong.PlayerView do
   Total number of losses for the player.
   """
   @spec losses(Player) :: integer
-  def losses(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def losses(player) do
     Repo.all(Match)
     |> Enum.filter(fn(m) -> player.id == MatchView.player_loss_id(m) end)
     |> Enum.count
@@ -70,8 +68,7 @@ defmodule Pong.PlayerView do
   Win-loss percentage as a string value.
   """
   @spec win_loss_percentage(Player) :: String
-  def win_loss_percentage(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def win_loss_percentage(player) do
     if total_matches(player) > 0, do: Float.to_string(wins(player) / total_matches(player) * 100, decimals: 0) <> "%", else: "0%"
   end
 
@@ -79,8 +76,7 @@ defmodule Pong.PlayerView do
   Win-loss percentage as a float from 0.0 to 100.0.
   """
   @spec win_loss_percentage_number(Player) :: Float
-  def win_loss_percentage_number(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def win_loss_percentage_number(player) do
     if total_matches(player) > 0, do: wins(player) / total_matches(player) * 100
   end
 
@@ -95,8 +91,7 @@ defmodule Pong.PlayerView do
   the planning of this application.
   """
   @spec total_points_scored(Player) :: integer
-  def total_points_scored(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def total_points_scored(player) do
     matches = Repo.all(Match)
     matches_participated_a = Enum.filter(matches, fn(m) -> player.id == m.player_a_id end)
     matches_participated_b = Enum.filter(matches, fn(m) -> player.id == m.player_b_id end)
@@ -112,8 +107,7 @@ defmodule Pong.PlayerView do
   the planning of this application.
   """
   @spec total_points_against(Player) :: integer
-  def total_points_against(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def total_points_against(player) do
     matches = Repo.all(Match)
     matches_participated_a = Enum.filter(matches, fn(m) -> player.id == m.player_a_id end)
     matches_participated_b = Enum.filter(matches, fn(m) -> player.id == m.player_b_id end)
@@ -127,8 +121,7 @@ defmodule Pong.PlayerView do
   or negative.
   """
   @spec total_points_differential(Player) :: String
-  def total_points_differential(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def total_points_differential(player) do
     differential = total_points_scored(player) - total_points_against(player)
     if differential > 0, do: "+" <> Integer.to_string(differential), else: differential
   end
@@ -227,8 +220,8 @@ defmodule Pong.PlayerView do
   A rival is the player that another player has lost to the most times.
   """
   @spec rival_id(Player) :: Player
-  def rival_id(%Player{id: id}) do
-    Repo.get(Player, id)
+  def rival_id(player) do
+    player
     |> players_lost_to
     |> Enum.reduce(nil, fn
       pair, nil ->
@@ -244,8 +237,7 @@ defmodule Pong.PlayerView do
   The name of the player that another player has lost to the most times.
   """
   @spec rival_name(Player) :: Player
-  def rival_name(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def rival_name(player) do
     if rival_id(player) do
       rival = Repo.get(Player, rival_id(player))
       rival.name
@@ -258,8 +250,7 @@ defmodule Pong.PlayerView do
   Matches against rival.
   """
   @spec matches_against_rival(Player) :: List
-  def matches_against_rival(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def matches_against_rival(player) do
     all_matches = Repo.all(Match)
     matches_between_a = Enum.filter(all_matches, fn(m) -> m.player_a_id == player.id && m.player_b_id == rival_id(player) end)
     matches_between_b = Enum.filter(all_matches, fn(m) -> m.player_b_id == player.id && m.player_a_id == rival_id(player) end)
@@ -270,8 +261,7 @@ defmodule Pong.PlayerView do
   Wins against rival.
   """
   @spec wins_against_rival(Player) :: integer
-  def wins_against_rival(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def wins_against_rival(player) do
     matches_against_rival(player)
     |> Enum.filter(fn(m) -> player.id == MatchView.player_win_id(m) end)
     |> Enum.count
@@ -281,8 +271,7 @@ defmodule Pong.PlayerView do
   Losses against rival.
   """
   @spec losses_against_rival(Player) :: integer
-  def losses_against_rival(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def losses_against_rival(player) do
     matches_against_rival(player)
     |> Enum.filter(fn(m) -> player.id == MatchView.player_loss_id(m) end)
     |> Enum.count
@@ -292,8 +281,7 @@ defmodule Pong.PlayerView do
   Record against rival.
   """
   @spec record_against_rival(Player) :: String
-  def record_against_rival(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def record_against_rival(player) do
     if wins_against_rival(player) > 0 || losses_against_rival(player) > 0 do
       Integer.to_string(wins_against_rival(player)) <> "-" <> Integer.to_string(losses_against_rival(player))
     else
@@ -309,8 +297,7 @@ defmodule Pong.PlayerView do
   List of recent matches that the player has participated in.
   """
   @spec recent_matches(Player) :: List
-  def recent_matches(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def recent_matches(player) do
     Repo.all(Match)
     |> Enum.filter(fn(m) -> player.id == m.player_a_id || player.id == m.player_b_id end)
   end
@@ -319,8 +306,7 @@ defmodule Pong.PlayerView do
   Matches lost by player.
   """
   @spec matches_lost(Player) :: List
-  def matches_lost(%Player{id: id}) do
-    player = Repo.get(Player, id)
+  def matches_lost(player) do
     recent_matches(player)
     |> Enum.filter(fn(m) -> player.id == MatchView.player_loss_id(m) end)
   end
@@ -329,9 +315,8 @@ defmodule Pong.PlayerView do
   List of ids for players that have been lost to.
   """
   @spec players_lost_to(Player) :: List
-  def players_lost_to(%Player{id: id}) do
+  def players_lost_to(player) do
     players_lost_to = []
-    player = Repo.get(Player, id)
     losses = matches_lost(player)
     Enum.map(losses, fn(m) -> players_lost_to ++ MatchView.player_win_id(m) end)
   end
