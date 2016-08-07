@@ -65,6 +65,18 @@ defmodule Pong.MatchView do
   ## -------------------------------------
 
   @doc """
+  The winning player of a match.
+  """
+  @spec player_winner(Match) :: Player
+  def player_winner(match) do
+    if match.player_a_points > match.player_b_points do
+      Repo.get(Player, match.player_a_id)
+    else
+      Repo.get(Player, match.player_b_id)
+    end
+  end
+
+  @doc """
   The id of the player who won the match.
   """
   @spec player_win_id(Match) :: integer
