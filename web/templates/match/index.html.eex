@@ -5,9 +5,9 @@
     <h3>Stats</h3>
     <table class="table match-stats">
       <tbody>
-        <tr><td>All-time Total Games Played:</td><td><%= total_matches %></td></tr>
-        <tr><td>All-time Total Points Scored:</td><td><%= total_points %></td></tr>
-        <tr><td>All-time Overtime Games Played:</td><td><%= overtime_matches %></td></tr>
+        <tr><td>All-time Total Games Played:</td><td><%= total_matches(@matches) %></td></tr>
+        <tr><td>All-time Total Points Scored:</td><td><%= total_points(@matches) %></td></tr>
+        <tr><td>All-time Overtime Games Played:</td><td><%= overtime_matches(@matches) %></td></tr>
       <tbody>
     </table>
   </div>
@@ -27,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= for match <- matches_sorted do %>
+        <%= for match <- matches_sorted(@matches) do %>
           <tr class="match-list-item">
             <td>
               <%= link match.id, to: match_path(@conn, :show, match) %>
