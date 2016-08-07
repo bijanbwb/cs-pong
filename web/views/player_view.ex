@@ -141,9 +141,8 @@ defmodule Pong.PlayerView do
   @doc """
   Win-loss percentage for the player with the highest all-time value.
   """
-  @spec highest_win_percentage :: String
-  def highest_win_percentage do
-    players = Repo.all(Player)
+  @spec highest_win_percentage(List) :: String
+  def highest_win_percentage(players) do
     players_with_results = Enum.filter(players, fn(p) -> total_matches(p) > 0 end)
     if Enum.count(players_with_results) > 0 do
       Enum.max_by(players_with_results, fn(p) -> win_loss_percentage_number(p) end)
@@ -154,9 +153,8 @@ defmodule Pong.PlayerView do
   @doc """
   Name of the player with the highest all-time win percentage.
   """
-  @spec highest_win_percentage_name :: String
-  def highest_win_percentage_name do
-    players = Repo.all(Player)
+  @spec highest_win_percentage_name(List) :: String
+  def highest_win_percentage_name(players) do
     players_with_results = Enum.filter(players, fn(p) -> total_matches(p) > 0 end)
     if Enum.count(players_with_results) > 0 do
       player_with_highest_percentage = Enum.max_by(players_with_results, fn(p) -> win_loss_percentage_number(p) end)
