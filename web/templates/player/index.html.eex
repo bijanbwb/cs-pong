@@ -7,7 +7,7 @@
       <tbody>
         <tr>
           <td>All-time Best Win Percentage:</td>
-          <td><%= highest_win_percentage_name(@players) %> (<%= highest_win_percentage(@players) %>)</td>
+          <td><%= highest_win_percentage_name(@players) %> (<%= highest_win_percentage_value(@players) %>)</td>
         </tr>
         <tr>
           <td>All-time Most Wins:</td>
