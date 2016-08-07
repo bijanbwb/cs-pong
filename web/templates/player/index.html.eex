@@ -11,11 +11,11 @@
         </tr>
         <tr>
           <td>All-time Most Wins:</td>
-          <td><%= most_wins_name %> (<%= most_wins %>)</td>
+          <td><%= most_wins_name(@players) %> (<%= most_wins(@players) %>)</td>
         </tr>
         <tr>
           <td>All-time Most Points:</td>
-          <td><%= most_points_name %> (<%= most_points %>)</td>
+          <td><%= most_points_name(@players) %> (<%= most_points(@players) %>)</td>
         </tr>
       <tbody>
     </table>
@@ -38,12 +38,12 @@
         </tr>
       </thead>
       <tbody>
-        <%= for player <- players_by_percentage do %>
+        <%= for player <- players_by_percentage(@players) do %>
           <tr class="player-list-item">
             <td>
               <%= tag(:img, src: avatar(player), alt: player.name, class: "avatar-image-small") %>
               <%= link player.name, to: player_path(@conn, :show, player) %>
-              <%= if player.id == current_champion.id do %><i class="fa fa-trophy"></i><% end %>
+              <%= if player.id == current_champion(@players).id do %><i class="fa fa-trophy"></i><% end %>
             </td>
             <td><%= wins(player) %></td>
             <td><%= losses(player) %></td>

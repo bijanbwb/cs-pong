@@ -133,9 +133,9 @@ defmodule Pong.PlayerView do
   @doc """
   The player with the highest win percentage is the current champion.
   """
-  @spec current_champion :: Player
-  def current_champion do
-    List.first(players_by_percentage)
+  @spec current_champion(List) :: Player
+  def current_champion(players) do
+    List.first(players_by_percentage(players))
   end
 
   @doc """
@@ -166,21 +166,16 @@ defmodule Pong.PlayerView do
   @doc """
   Number of wins for the player with the most all-time wins.
   """
-  @spec most_wins :: String
-  def most_wins do
-    players = Repo.all(Player)
-    if Enum.count(players) > 0 do
-      Enum.max_by(players, fn(p) -> wins(p) end)
-      |> wins
-    end
+  @spec most_wins(List) :: String
+  def most_wins(players) do
+    if Enum.count(players) > 0, do: Enum.max_by(players, fn(p) -> wins(p) end) |> wins
   end
 
   @doc """
   Name of the player with the most all-time wins.
   """
-  @spec most_wins_name :: String
-  def most_wins_name do
-    players = Repo.all(Player)
+  @spec most_wins_name(List) :: String
+  def most_wins_name(players) do
     if Enum.count(players) > 0 do
       winningest_player = Enum.max_by(players, fn(p) -> wins(p) end)
       winningest_player.name
@@ -190,9 +185,8 @@ defmodule Pong.PlayerView do
   @doc """
   Total points for the player with the most all-time points.
   """
-  @spec most_points :: String
-  def most_points do
-    players = Repo.all(Player)
+  @spec most_points(List) :: String
+  def most_points(players) do
     if Enum.count(players) > 0 do
       Enum.max_by(players, fn(p) -> total_points_scored(p) end)
       |> total_points_scored
@@ -202,9 +196,8 @@ defmodule Pong.PlayerView do
   @doc """
   Name of the player with the most all-time points.
   """
-  @spec most_points_name :: String
-  def most_points_name do
-    players = Repo.all(Player)
+  @spec most_points_name(List) :: String
+  def most_points_name(players) do
     if Enum.count(players) > 0 do
       highest_scoring_player = Enum.max_by(players, fn(p) -> total_points_scored(p) end)
       highest_scoring_player.name
@@ -326,9 +319,8 @@ defmodule Pong.PlayerView do
   This function is impressively obfuscated even though it is meant to accomplish
   something simple.
   """
-  @spec players_by_percentage :: List
-  def players_by_percentage do
-    players = Repo.all(Player)
+  @spec players_by_percentage(List) :: List
+  def players_by_percentage(players) do
     players_with_results = Enum.filter(players, fn(p) -> total_matches(p) > 0 end)
     players_without_results = Enum.filter(players, fn(p) -> total_matches(p) == 0 end)
     players_by_percentage = Enum.reverse(Enum.sort_by(players_with_results, fn(p) -> win_loss_percentage_number(p) end))
