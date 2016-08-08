@@ -34,8 +34,8 @@ defmodule Pong.PlayerView do
   """
   @spec most_recent_match_date(List, Player) :: String
   def most_recent_match_date(matches, player) do
-    recent_matches = recent_matches(matches, player)
-    if Enum.count(recent_matches) > 0, do: Ecto.DateTime.to_date(List.last(recent_matches).inserted_at), else: "No Games"
+    player_matches = player_matches(matches, player)
+    if Enum.count(player_matches) > 0, do: Ecto.DateTime.to_date(List.last(player_matches).inserted_at), else: "No Games"
   end
 
   ## -------------------------------------
@@ -286,12 +286,21 @@ defmodule Pong.PlayerView do
   ## -------------------------------------
 
   @doc """
-  List of recent matches that the player has participated in.
+  List of all matches that the player has participated in.
   """
-  @spec recent_matches(List, Player) :: List
-  def recent_matches(matches, player) do
+  @spec player_matches(List, Player) :: List
+  def player_matches(matches, player) do
     matches
     |> Enum.filter(fn(m) -> player.id == m.player_a_id || player.id == m.player_b_id end)
+  end
+
+  @doc """
+  Matches won by player.
+  """
+  @spec matches_won(List, Player) :: List
+  def matches_won(matches, player) do
+    player_matches(matches, player)
+    |> Enum.filter(fn(m) -> player.id == MatchView.player_win_id(m) end)
   end
 
   @doc """
@@ -299,7 +308,7 @@ defmodule Pong.PlayerView do
   """
   @spec matches_lost(List, Player) :: List
   def matches_lost(matches, player) do
-    recent_matches(matches, player)
+    player_matches(matches, player)
     |> Enum.filter(fn(m) -> player.id == MatchView.player_loss_id(m) end)
   end
 
