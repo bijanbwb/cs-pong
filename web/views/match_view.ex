@@ -258,4 +258,12 @@ defmodule Pong.MatchView do
   def matches_between_players(matches, match) do
     Enum.filter(matches, fn(m) -> m.player_a_id == match.player_a_id && m.player_b_id == match.player_b_id || m.player_b_id == match.player_a_id && m.player_a_id == match.player_b_id end)
   end
+
+  @doc """
+  List of matches played this week. The current week starts on Monday mornings.
+  """
+  @spec matches_this_week(List) :: List
+  def matches_this_week(matches) do
+    # Enum.filter(matches, fn(m) -> m.created_at > start_of_week end)
+  end
 end
