@@ -34,8 +34,8 @@ defmodule Pong.PlayerView do
   """
   @spec most_recent_match_date(List, Player) :: String
   def most_recent_match_date(matches, player) do
-    recent_matches = recent_matches(matches, player)
-    if Enum.count(recent_matches) > 0, do: Ecto.DateTime.to_date(List.last(recent_matches).inserted_at), else: "No Games"
+    player_matches = player_matches(matches, player)
+    if Enum.count(player_matches) > 0, do: Ecto.DateTime.to_date(List.last(player_matches).inserted_at), else: "No Games"
   end
 
   ## -------------------------------------
@@ -84,32 +84,18 @@ defmodule Pong.PlayerView do
 
   @doc """
   All-time total number of points scored.
-
-  The complexity of this makes me wonder if I made a grievous error somewhere in
-  the planning of this application.
   """
   @spec total_points_scored(List, Player) :: integer
   def total_points_scored(matches, player) do
-    matches_participated_a = Enum.filter(matches, fn(m) -> player.id == m.player_a_id end)
-    matches_participated_b = Enum.filter(matches, fn(m) -> player.id == m.player_b_id end)
-    matches_points_scored_a = Enum.reduce(matches_participated_a, 0, fn(m, acc) -> m.player_a_points + acc end)
-    matches_points_scored_b = Enum.reduce(matches_participated_b, 0, fn(m, acc) -> m.player_b_points + acc end)
-    matches_points_scored_a + matches_points_scored_b
+    Enum.reduce(player_matches(matches, player), 0, fn(m, acc) -> acc + if player.id == m.player_a_id, do: m.player_a_points, else: m.player_b_points end)
   end
 
   @doc """
   All-time total number of points scored against.
-
-  The complexity of this makes me wonder if I made a grievous error somewhere in
-  the planning of this application.
   """
   @spec total_points_against(List, Player) :: integer
   def total_points_against(matches, player) do
-    matches_participated_a = Enum.filter(matches, fn(m) -> player.id == m.player_a_id end)
-    matches_participated_b = Enum.filter(matches, fn(m) -> player.id == m.player_b_id end)
-    matches_points_against_a = Enum.reduce(matches_participated_a, 0, fn(m, acc) -> m.player_b_points + acc end)
-    matches_points_against_b = Enum.reduce(matches_participated_b, 0, fn(m, acc) -> m.player_a_points + acc end)
-    matches_points_against_a + matches_points_against_b
+    Enum.reduce(player_matches(matches, player), 0, fn(m, acc) -> acc + if player.id == m.player_a_id, do: m.player_b_points, else: m.player_a_points end)
   end
 
   @doc """
@@ -286,12 +272,21 @@ defmodule Pong.PlayerView do
   ## -------------------------------------
 
   @doc """
-  List of recent matches that the player has participated in.
+  List of all matches that the player has participated in.
   """
-  @spec recent_matches(List, Player) :: List
-  def recent_matches(matches, player) do
+  @spec player_matches(List, Player) :: List
+  def player_matches(matches, player) do
     matches
     |> Enum.filter(fn(m) -> player.id == m.player_a_id || player.id == m.player_b_id end)
+  end
+
+  @doc """
+  Matches won by player.
+  """
+  @spec matches_won(List, Player) :: List
+  def matches_won(matches, player) do
+    player_matches(matches, player)
+    |> Enum.filter(fn(m) -> player.id == MatchView.player_win_id(m) end)
   end
 
   @doc """
@@ -299,7 +294,7 @@ defmodule Pong.PlayerView do
   """
   @spec matches_lost(List, Player) :: List
   def matches_lost(matches, player) do
-    recent_matches(matches, player)
+    player_matches(matches, player)
     |> Enum.filter(fn(m) -> player.id == MatchView.player_loss_id(m) end)
   end
 
