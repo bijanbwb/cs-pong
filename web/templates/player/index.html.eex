@@ -23,24 +23,20 @@
         </tr>
       <tbody>
     </table>
-    <h3>This Week's Stats</h3>
+    <h3>Weekly Stats</h3>
     <table class="table match-stats">
       <tbody>
         <tr>
           <td>Best Win Percentage:</td>
-          <td><%= highest_win_percentage_name(@matches, @players) %> (<%= highest_win_percentage_value(@matches, @players) %>)</td>
+          <td><%= highest_win_percentage_name(MatchView.matches_this_week(@matches), @players) %> (<%= highest_win_percentage_value(MatchView.matches_this_week(@matches), @players) %>)</td>
         </tr>
         <tr>
           <td>Most Wins:</td>
-          <td><%= most_wins_name(@matches, @players) %> (<%= most_wins(@matches, @players) %>)</td>
+          <td><%= most_wins_name(MatchView.matches_this_week(@matches), @players) %> (<%= most_wins(MatchView.matches_this_week(@matches), @players) %>)</td>
         </tr>
         <tr>
           <td>Most Points:</td>
-          <td><%= most_points_name(@matches, @players) %> (<%= most_points(@matches, @players) %>)</td>
-        </tr>
-        <tr>
-          <td>Most Overtime Wins:</td>
-          <td><%= most_overtime_wins_name(@matches, @players) %> (<%= most_overtime_wins_value(@matches, @players) %>)</td>
+          <td><%= most_points_name(MatchView.matches_this_week(@matches), @players) %> (<%= most_points(MatchView.matches_this_week(@matches), @players) %>)</td>
         </tr>
       <tbody>
     </table>
