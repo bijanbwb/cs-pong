@@ -189,6 +189,33 @@ defmodule Pong.PlayerView do
     end
   end
 
+  @doc """
+  The player with the most overtime wins.
+  """
+  @spec most_overtime_wins(List, List) :: Player
+  def most_overtime_wins(matches, players) do
+    if Enum.count(players) > 0 do
+      overtime_matches = Enum.filter(matches, fn(m) -> MatchView.overtime?(m) end)
+      Enum.max_by(players, fn(p) -> wins(overtime_matches, p) end)
+    end
+  end
+
+  @doc """
+  The name of the player with the most overtime wins.
+  """
+  @spec most_overtime_wins_name(List, List) :: String
+  def most_overtime_wins_name(matches, players) do
+    if most_overtime_wins(matches, players), do: most_overtime_wins(matches, players).name
+  end
+
+  @doc """
+  Name of the player with the most all-time overtime wins.
+  """
+  @spec most_overtime_wins_value(List, List) :: String
+  def most_overtime_wins_value(matches, players) do
+    if most_overtime_wins(matches, players), do: wins(matches, most_overtime_wins(matches, players))
+  end
+
   ## -------------------------------------
   ##   Player Rival Data
   ## -------------------------------------

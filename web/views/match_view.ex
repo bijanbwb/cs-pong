@@ -1,5 +1,6 @@
 defmodule Pong.MatchView do
   use Pong.Web, :view
+  use Timex
 
   alias Pong.Match
   alias Pong.Player
@@ -257,5 +258,62 @@ defmodule Pong.MatchView do
   @spec matches_between_players(List, Match) :: List
   def matches_between_players(matches, match) do
     Enum.filter(matches, fn(m) -> m.player_a_id == match.player_a_id && m.player_b_id == match.player_b_id || m.player_b_id == match.player_a_id && m.player_a_id == match.player_b_id end)
+  end
+
+  @doc """
+  Finds the most recent Sunday to use for determining which matches occurred
+  in the current week.
+
+  Seems like there would have to be an easier way to do this, but I
+  unsuccessfully spent a decent amount of time trying to find it.
+  """
+  @spec find_last_sunday :: Date
+  def find_last_sunday do
+    cond do
+      Timex.weekday(Timex.today) == 1 ->
+        Timex.shift(Timex.today, days: -1)
+      Timex.weekday(Timex.today) == 2 ->
+        Timex.shift(Timex.today, days: -2)
+      Timex.weekday(Timex.today) == 3 ->
+        Timex.shift(Timex.today, days: -3)
+      Timex.weekday(Timex.today) == 4 ->
+        Timex.shift(Timex.today, days: -4)
+      Timex.weekday(Timex.today) == 5 ->
+        Timex.shift(Timex.today, days: -5)
+      Timex.weekday(Timex.today) == 6 ->
+        Timex.shift(Timex.today, days: -6)
+      Timex.weekday(Timex.today) == 7 ->
+        Timex.shift(Timex.today, days: -7)
+    end
+  end
+
+  @doc """
+  List of matches played this week. The current week starts on Monday mornings.
+  """
+  @spec matches_this_week(List) :: List
+  def matches_this_week(matches) do
+    Enum.filter(matches, fn(m) -> Timex.after?(m.inserted_at |> Ecto.DateTime.to_date |> Ecto.Date.to_erl |> Date.from_erl |> elem(1), find_last_sunday) end)
+  end
+
+  @doc """
+  Finds the number of the current month.
+
+  Seems like there would have to be an easier way to do this, but I
+  unsuccessfully spent a decent amount of time trying to find it.
+  """
+  @spec find_current_month :: Integer
+  def find_current_month do
+    DateTime.utc_now
+    |> DateTime.to_date
+    |> Date.to_erl
+    |> elem(1)
+  end
+
+  @doc """
+  List of matches played in the current month.
+  """
+  @spec matches_this_month(List) :: List
+  def matches_this_month(matches) do
+    Enum.filter(matches, fn(m) -> m.inserted_at |> Ecto.DateTime.to_date |> Ecto.Date.dump |> elem(1) |> elem(1) == find_current_month end)
   end
 end
