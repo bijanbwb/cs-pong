@@ -294,4 +294,26 @@ defmodule Pong.MatchView do
   def matches_this_week(matches) do
     Enum.filter(matches, fn(m) -> Timex.after?(m.inserted_at |> Ecto.DateTime.to_date |> Ecto.Date.to_erl |> Date.from_erl |> elem(1), find_last_sunday) end)
   end
+
+  @doc """
+  Finds the number of the current month.
+
+  Seems like there would have to be an easier way to do this, but I
+  unsuccessfully spent a decent amount of time trying to find it.
+  """
+  @spec find_current_month :: Integer
+  def find_current_month do
+    DateTime.utc_now
+    |> DateTime.to_date
+    |> Date.to_erl
+    |> elem(1)
+  end
+
+  @doc """
+  List of matches played in the current month.
+  """
+  @spec matches_this_month(List) :: List
+  def matches_this_month(matches) do
+    Enum.filter(matches, fn(m) -> m.inserted_at |> Ecto.DateTime.to_date |> Ecto.Date.dump |> elem(1) |> elem(1) == find_current_month end)
+  end
 end
