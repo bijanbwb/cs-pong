@@ -313,6 +313,7 @@ defmodule Pong.PlayerView do
   @spec recent_player_matches(List, Player) :: List
   def recent_player_matches(matches, player) do
     player_matches(matches, player)
+    |> Enum.reverse()
     |> Enum.take(5)
   end
 
