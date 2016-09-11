@@ -51,7 +51,7 @@
 
 <div class="row">
   <div class="col-md-5 col-md-offset-3">
-    <h3>Recent Matches</h3>
+    <h3>All Matches</h3>
     <table class="table">
       <thead>
         <tr>
@@ -63,7 +63,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= for match <- recent_player_matches(@matches, @player) do %>
+        <%= for match <- player_matches(@matches, @player) do %>
           <tr class="match-list-item">
             <td>
               <%= link match.id, to: match_path(@conn, :show, match) %>
