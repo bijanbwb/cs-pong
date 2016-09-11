@@ -7,8 +7,8 @@
 ## Requirements
 
 - Erlang/OTP 19
-- Elixir 1.2+
-- Phoenix 1.2+
+- Elixir 1.3.2
+- Phoenix 1.2.0
 - Node 5.5.0
 
 ## Setup Instructions
