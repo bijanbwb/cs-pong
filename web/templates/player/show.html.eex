@@ -44,10 +44,6 @@
           <td class="rival">Rival:</td>
           <td><%= rival_name(@matches, @player) %></td>
         </tr>
-        <tr>
-          <td class="rival">Record Against Rival:</td>
-          <td><%= record_against_rival(@matches, @player) %></td>
-        </tr>
       <tbody>
     </table>
   </div>
