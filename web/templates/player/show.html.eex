@@ -67,7 +67,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= for match <- player_matches(@matches, @player) do %>
+        <%= for match <- recent_player_matches(@matches, @player) do %>
           <tr class="match-list-item">
             <td>
               <%= link match.id, to: match_path(@conn, :show, match) %>

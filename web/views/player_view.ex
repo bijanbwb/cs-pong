@@ -308,6 +308,15 @@ defmodule Pong.PlayerView do
   end
 
   @doc """
+  List of the last 5 matches that the player has participated in.
+  """
+  @spec recent_player_matches(List, Player) :: List
+  def recent_player_matches(matches, player) do
+    player_matches(matches, player)
+    |> Enum.take(5)
+  end
+
+  @doc """
   Matches won by player.
   """
   @spec matches_won(List, Player) :: List
