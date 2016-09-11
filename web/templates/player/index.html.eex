@@ -23,7 +23,7 @@
     <% end %>
 
     <%= if Enum.count(MatchView.matches_this_month(@matches)) > 0 do %>
-      <h3>Monthly Stats</h3>
+      <h3>Stats for <%= Timex.today.month |> Timex.month_name %></h3>
       <table class="table match-stats">
         <tbody>
           <tr>
@@ -43,7 +43,7 @@
     <% end %>
 
     <%= if Enum.count(MatchView.matches_this_week(@matches)) > 0 do %>
-      <h3>Weekly Stats</h3>
+      <h3>Stats for This Week</h3>
       <table class="table match-stats">
         <tbody>
           <tr>
