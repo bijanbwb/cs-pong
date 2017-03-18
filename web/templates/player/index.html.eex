@@ -71,12 +71,17 @@
       <thead>
         <tr>
           <th></th>
-          <th>W</th>
-          <th>L</th>
-          <th>PCT</th>
-          <th>PF</th>
-          <th>PA</th>
-          <th>DIFF</th>
+          <th class="text-center">
+            <abbr title="Wins">W</abbr> |
+            <abbr title="Losses">L</abbr>
+            (<abbr title="Percentage">PCT</abbr>)
+          </th>
+          <th class="text-center">
+            <abbr title="Points For">PF</abbr> |
+            <abbr title="Points Against">PA</abbr>
+            (<abbr title="Point Differential">Diff</abbr>)
+          </th>
+          <th class="text-center"><abbr title="Elo Ranking">Elo</abbr></th>
         </tr>
       </thead>
       <tbody>
@@ -87,12 +92,17 @@
               <%= link player.name, to: player_path(@conn, :show, player) %>
               <%= if player == current_champion(@matches, @players) do %><i class="fa fa-trophy"></i><% end %>
             </td>
-            <td><%= wins(@matches, player) %></td>
-            <td><%= losses(@matches, player) %></td>
-            <td><%= win_loss_percentage(@matches, player) %></td>
-            <td><%= total_points_scored(@matches, player) %></td>
-            <td><%= total_points_against(@matches, player) %></td>
-            <td><%= total_points_differential(@matches, player) %></td>
+            <td class="text-center small">
+              <%= wins(@matches, player) %> |
+              <%= losses(@matches, player) %>
+              (<%= win_loss_percentage(@matches, player) %>)
+            </td>
+            <td class="text-center small">
+              <%= total_points_scored(@matches, player) %> |
+              <%= total_points_against(@matches, player) %>
+              (<%= total_points_differential(@matches, player) %>)
+            </td>
+            <td class="text-center small"><%= player.ranking |> round %></td>
           </tr>
         <% end %>
       </tbody>
