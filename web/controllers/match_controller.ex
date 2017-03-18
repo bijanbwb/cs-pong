@@ -19,7 +19,9 @@ defmodule Pong.MatchController do
     changeset = Match.changeset(%Match{}, match_params)
 
     case Repo.insert(changeset) do
-      {:ok, _match} ->
+      {:ok, match} ->
+        Pong.Elo.update_ranks(match)
+
         conn
         |> put_flash(:info, "Match created successfully.")
         |> redirect(to: match_path(conn, :index))

@@ -7,10 +7,10 @@ defmodule Pong.Repo.Migrations.AddEloToPlayers do
       add :ranking, :float, null: false, default: 1000.0
       add :provisional, :boolean, null: false, default: true
     end
-    
+
     create index(:players, [:ranking])
   end
-  
+
   def down do
     alter table(:players) do
       remove :games
