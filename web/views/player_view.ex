@@ -14,7 +14,12 @@ defmodule Pong.PlayerView do
   """
   @spec avatar(Player) :: String
   def avatar(player) do
-    if player.avatar_url, do: player.avatar_url, else: "/images/default_avatar.png"
+    case player do
+      %{avatar_url: url} when not is_nil(url) ->
+        url
+      _ ->
+        "/images/default_avatar.png"
+    end
   end
 
   ## -------------------------------------
