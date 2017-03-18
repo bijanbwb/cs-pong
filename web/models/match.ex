@@ -2,8 +2,9 @@ defmodule Pong.Match do
   use Pong.Web, :model
 
   schema "matches" do
-    field :player_a_id, :integer
-    field :player_b_id, :integer
+    belongs_to :player_a, Pong.Player
+    belongs_to :player_b, Pong.Player
+
     field :player_a_points, :integer
     field :player_b_points, :integer
 

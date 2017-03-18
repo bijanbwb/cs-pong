@@ -8,6 +8,8 @@ defmodule Pong.Player do
     field :ranking, :float, default: 1000.0
     field :provisional, :boolean, default: true
 
+    has_many :matches, Pong.Match
+
     timestamps()
   end
 
