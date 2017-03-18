@@ -23,6 +23,14 @@ defmodule Pong.Elo do
 
   alias Pong.{Match, Player}
 
+  @doc """
+  Calculate the new ranks of players after a match.
+
+  This calculation is a straightforward implementation of the Elo algorithm,
+  with the addition of a "ranking bonus" of two points for winning the game.
+  Since pong scores are usually pretty close, this helps player mobility in
+  the ranks.
+  """
   @spec calculate_ranks(Match, {Player, Player}) :: {float, float}
   def calculate_ranks(match, {player_a, player_b}) do
     {rank_a, rank_b} = {player_a.ranking, player_b.ranking}
