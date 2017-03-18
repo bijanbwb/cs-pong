@@ -29,9 +29,22 @@ defmodule Pong.Elo do
     {expected_a, expected_b} = expected_score(rank_a, rank_b)
 
     # The "score" is a ratio of points.
-    score_total = match.player_a_points + match.player_b_points
-    score_a = match.player_a_points / score_total
-    score_b = match.player_b_points / score_total
+    score_total = match.player_a_points + match.player_b_points + 2
+
+    # Grant a 2-point "ranking bonus" for winning.
+    {score_a, score_b} = cond do
+      match.player_a_points > match.player_b_points ->
+        {
+          (match.player_a_points + 2) / score_total,
+          match.player_b_points / score_total
+        }
+
+      true ->
+        {
+          match.player_a_points / score_total,
+          (match.player_b_points + 2) / score_total
+        }
+    end
 
     # New rank depends on the player's K factor.
     rank_a_new = rank_a + k_factor(rank_a) * (score_a - expected_a)
