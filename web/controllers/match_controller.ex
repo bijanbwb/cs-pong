@@ -2,11 +2,15 @@ defmodule Pong.MatchController do
   use Pong.Web, :controller
 
   alias Pong.Match
+  import Ecto.Query
 
   plug :scrub_params, "match" when action in [:create, :update]
 
   def index(conn, _params) do
-    matches = Repo.all(Match)
+    matches = Match
+    |> preload([:player_a, :player_b])
+    |> Repo.all
+
     render(conn, "index.html", matches: matches)
   end
 
@@ -19,7 +23,9 @@ defmodule Pong.MatchController do
     changeset = Match.changeset(%Match{}, match_params)
 
     case Repo.insert(changeset) do
-      {:ok, _match} ->
+      {:ok, match} ->
+        Pong.Elo.update_ranks(match)
+
         conn
         |> put_flash(:info, "Match created successfully.")
         |> redirect(to: match_path(conn, :index))
@@ -29,8 +35,14 @@ defmodule Pong.MatchController do
   end
 
   def show(conn, %{"id" => id}) do
-    match = Repo.get!(Match, id)
-    matches = Repo.all(Match)
+    match = Match
+    |> preload([:player_a, :player_b])
+    |> Repo.get!(id)
+
+    matches = Match
+    |> preload([:player_a, :player_b])
+    |> Repo.all
+
     render(conn, "show.html", match: match, matches: matches)
   end
 

@@ -8,7 +8,9 @@ defmodule Pong.PlayerController do
 
   def index(conn, _params) do
     players = Repo.all(Player)
-    matches = Repo.all(Match)
+    matches = Match
+    |> preload([:player_a, :player_b])
+    |> Repo.all
     render(conn, "index.html", players: players, matches: matches)
   end
 
@@ -32,7 +34,11 @@ defmodule Pong.PlayerController do
 
   def show(conn, %{"id" => id}) do
     player = Repo.get!(Player, id)
-    matches = Repo.all(Match)
+
+    matches = Match
+    |> preload([:player_a, :player_b])
+    |> Repo.all
+
     render(conn, "show.html", player: player, matches: matches)
   end
 
