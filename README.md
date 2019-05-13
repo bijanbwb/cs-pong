@@ -1,6 +1,6 @@
-# [Code School Ping Pong Tracker](https://codeschool-pong.herokuapp.com/)
+# [Code School Ping Pong Tracker](https://codeschool-pong.herokuapp.com)
 
-[![Screenshot](https://cloud.githubusercontent.com/assets/201320/17273010/b6dff0de-5674-11e6-93cb-5985d2aa2979.png)](https://codeschool-pong.herokuapp.com/)
+[![Screenshot](https://cloud.githubusercontent.com/assets/201320/17273010/b6dff0de-5674-11e6-93cb-5985d2aa2979.png)](https://codeschool-pong.herokuapp.com)
 
 > Track Code School ping pong game results with Elixir and Phoenix!
 
@@ -31,7 +31,7 @@
 
 ## Deployment
 
-This app is deployed to Heroku at https://codeschool-pong.herokuapp.com under the `vendor+heroku@codeschool.com` account. If you have Heroku Toolbelt installed you can log in and deploy with `git push heroku master`.
+This app is deployed to Heroku at https://codeschool-pong.herokuapp.com. If you have Heroku Toolbelt installed you can log in and deploy with `git push heroku master`.
 
 ## Contributing
 
